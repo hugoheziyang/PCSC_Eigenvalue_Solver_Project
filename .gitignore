@@ -1,1 +1,3 @@
+# Ignore build and IDE directories
 build/
+.vscode/
