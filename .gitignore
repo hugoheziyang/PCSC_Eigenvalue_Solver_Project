@@ -1,3 +1,5 @@
 # Ignore build and IDE directories
 build/
 .vscode/
+
+eigen-5.0.0

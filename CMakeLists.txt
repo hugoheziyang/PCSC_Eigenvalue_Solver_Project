@@ -3,12 +3,29 @@ project(PCSC_Eigenvalue_Solver_Project)
 
 set(CMAKE_CXX_STANDARD 20)
 
-
-add_subdirectory(test)
-
-set(SOURCES
-    main.cpp
+# Add Eigen
+add_library(eigen_interface INTERFACE)
+target_include_directories(eigen_interface INTERFACE
+    ${CMAKE_SOURCE_DIR}/eigen-5.0.0
 )
 
 
-add_executable(main ${SOURCES})
+add_library(PCSC_Eigenvalue_Solver_Project_Library
+    power_method/power_solver.cpp
+    power_method/shifted_inverse_power_solver.cpp
+    qr_method/qr_factoriser.cpp
+    qr_method/qr_method.cpp
+)
+
+target_include_directories(PCSC_Eigenvalue_Solver_Project_Library PUBLIC
+    ${CMAKE_SOURCE_DIR}
+)
+
+# Link the library with Eigen
+target_link_libraries(PCSC_Eigenvalue_Solver_Project_Library PUBLIC eigen_interface)
+add_executable(main main.cpp)
+# Give the executable access to Eigen
+target_link_libraries(main PRIVATE eigen_interface)
+
+
+add_subdirectory(test)

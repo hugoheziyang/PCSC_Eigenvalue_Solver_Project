@@ -1,13 +1,14 @@
-
 find_package(GTest REQUIRED)
 
-add_executable(first_test
-    first_test.cpp
-    add.cpp
+# Test for EigenMatrixAdapter
+add_executable(eigen_matrix_adapter_test
+    eigen_matrix_adapter_test.cpp
 )
-
-target_link_libraries(first_test
+target_link_libraries(eigen_matrix_adapter_test
     PRIVATE
+        PCSC_Eigenvalue_Solver_Project_Library
         GTest::gtest
         GTest::gtest_main
 )
+
+
