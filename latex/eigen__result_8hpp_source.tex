@@ -1,0 +1,28 @@
+\doxysection{eigen\+\_\+result.\+hpp}
+\hypertarget{eigen__result_8hpp_source}{}\label{eigen__result_8hpp_source}\index{result/eigen\_result.hpp@{result/eigen\_result.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <Eigen/Dense>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Scalar>}
+\DoxyCodeLine{00006\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structEigenResult}{EigenResult}}\ \{}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \ \ \ \ Scalar\ eigenvalue;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00009\ \ \ \ \ Eigen::Matrix<Scalar,\ Eigen::Dynamic,\ 1>\ eigenvector;\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{int}\ \ iterations\ =\ 0;\ \ }
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{bool}\ converged\ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{structEigenResult}{EigenResult}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00015\ \ \ \ \ }
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{structEigenResult}{EigenResult}}(\textcolor{keyword}{const}\ Scalar\&\ lambda,\ \textcolor{keyword}{const}\ Eigen::Matrix<Scalar,\ Eigen::Dynamic,\ 1>\&\ vec,\ \textcolor{keywordtype}{int}\ iters,\ \textcolor{keywordtype}{bool}\ conv)\ :}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ eigenvalue(lambda),}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ eigenvector(vec),}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ iterations(iters),}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ converged(conv)}
+\DoxyCodeLine{00021\ \ \ \ \ \{\}}
+\DoxyCodeLine{00022\ \};}
+
+\end{DoxyCode}
