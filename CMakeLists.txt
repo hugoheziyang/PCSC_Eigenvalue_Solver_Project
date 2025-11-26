@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 # Add Eigen
 add_library(eigen_interface INTERFACE)
 target_include_directories(eigen_interface INTERFACE
-    ${CMAKE_SOURCE_DIR}/eigen-5.0.0
+    ${CMAKE_SOURCE_DIR}/eigen
 )
 
 
