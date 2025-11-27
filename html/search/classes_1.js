@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['qrresult_0',['QRResult',['../structQRResult.html',1,'']]]
+  ['eigenresult_0',['EigenResult',['../structEigenResult.html',1,'']]]
 ];

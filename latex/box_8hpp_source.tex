@@ -1,0 +1,23 @@
+\doxysection{box.\+hpp}
+\hypertarget{box_8hpp_source}{}\label{box_8hpp_source}\index{matrix/box.hpp@{matrix/box.hpp}}
+\mbox{\hyperlink{box_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <typeinfo>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBox}{Box}}\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{classBox_a5e0e2a22406a9302d1d2f7e7aa6db302}{Box}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classBox_a9227d62e4261755a25f2ef1486ccfa35}{Box}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classBox}{Box}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classBox}{Box}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classBox}{Box}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00035\ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classBox_a61f83f4f33044c2754278b63e9a02d9f}{\string~Box}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ std::type\_info\&\ \mbox{\hyperlink{classBox_a4fdc2a73910a3448bbe6e42f26a116b1}{type}}()\ const\ noexcept\ =\ 0;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00076\ \ \ \ \ virtual\ std::unique\_ptr<\mbox{\hyperlink{classBox}{Box}}>\ \mbox{\hyperlink{classBox_a0ffb29f5870945a38a1b5e43dc0c88e0}{clone}}()\ const\ =\ 0;}
+\DoxyCodeLine{00077\ \};}
+
+\end{DoxyCode}

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['shiftedoptions_0',['ShiftedOptions',['../structShiftedOptions.html',1,'']]],
-  ['solveroptions_1',['SolverOptions',['../structSolverOptions.html',1,'']]]
+  ['matrix_0',['Matrix',['../classMatrix.html',1,'']]]
 ];

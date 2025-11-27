@@ -3,24 +3,24 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
-\DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <Eigen/Dense>}}
-\DoxyCodeLine{00004\ }
-\DoxyCodeLine{00005\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Scalar>}
-\DoxyCodeLine{00006\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structQRResult}{QRResult}}\ \{}
-\DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ \ \ \ \ Eigen::Matrix<Scalar,\ Eigen::Dynamic,\ 1>\ eigenvalues;}
-\DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{int}\ \ iterations\ =\ 0;\ }
-\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{bool}\ converged\ \ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \ \ \ \ QREigenResult()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \ \ \ \ QREigenResult(\textcolor{keyword}{const}\ Eigen::Matrix<Scalar,\ Eigen::Dynamic,\ 1>\&\ eigvals,\ \textcolor{keywordtype}{int}\ iters,\ \textcolor{keywordtype}{bool}\ conv)\ :}
-\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ eigenvalues(eigvals),}
-\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ iterations(iters),}
-\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ converged(conv)}
-\DoxyCodeLine{00019\ \ \ \ \ \{\}}
-\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <Eigen/Dense>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Scalar>}
+\DoxyCodeLine{00021\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structQRResult}{QRResult}}\ \{}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen::Matrix<Scalar,\ Eigen::Dynamic,\ 1>}}\ \mbox{\hyperlink{structQRResult_a03489a39dee83c4625023b4ae3e4b16f}{eigenvalues}};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structQRResult_a1bfd672b062600192883425df8026a13}{iterations}}\ =\ 0;}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structQRResult_a83a80ccca27718632b41dadb5af23d57}{converged}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{structQRResult_a9130c175cf0bae70c4db002ae31d8f3d}{QRResult}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{structQRResult_ade539cf498c9d896565d13ec527c4bef}{QRResult}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen::Matrix<Scalar,\ Eigen::Dynamic,\ 1>}}\&\ \mbox{\hyperlink{classMatrix}{eigvals}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classMatrix}{iters}},\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classMatrix}{conv}})}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structQRResult_a03489a39dee83c4625023b4ae3e4b16f}{eigenvalues}}(\mbox{\hyperlink{classMatrix}{eigvals}})}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ ,\ \mbox{\hyperlink{structQRResult_a1bfd672b062600192883425df8026a13}{iterations}}(\mbox{\hyperlink{classMatrix}{iters}})}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ ,\ \mbox{\hyperlink{structQRResult_a83a80ccca27718632b41dadb5af23d57}{converged}}(\mbox{\hyperlink{classMatrix}{conv}})}
+\DoxyCodeLine{00040\ \ \ \ \ \{\}}
+\DoxyCodeLine{00041\ \};}
 
 \end{DoxyCode}

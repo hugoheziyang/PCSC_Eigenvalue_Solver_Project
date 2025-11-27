@@ -1,0 +1,23 @@
+\doxysection{matrix/box.hpp File Reference}
+\hypertarget{box_8hpp}{}\label{box_8hpp}\index{matrix/box.hpp@{matrix/box.hpp}}
+
+
+Defines the abstract base class for type-\/erased storage.  
+
+
+{\ttfamily \#include $<$typeinfo$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+Include dependency graph for box.\+hpp\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classBox}{Box}}
+\begin{DoxyCompactList}\small\item\em Abstract base class for type-\/erased objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines the abstract base class for type-\/erased storage. 
+

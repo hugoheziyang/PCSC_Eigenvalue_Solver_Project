@@ -76,29 +76,56 @@ $(function() {
   <div class="headertitle"><div class="title">EigenResult&lt; Scalar &gt; Struct Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Stores the result of algorithms that compute one eigenvalue and eigenvector.  
+ <a href="structEigenResult.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="eigen__result_8hpp_source.html">eigen_result.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a749665c9727493530ce0602cbc7aa77f" id="r_a749665c9727493530ce0602cbc7aa77f"><td class="memItemLeft" align="right" valign="top"><a id="a749665c9727493530ce0602cbc7aa77f" name="a749665c9727493530ce0602cbc7aa77f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>EigenResult</b> ()=<a class="el" href="classMatrix.html">default</a></td></tr>
+<tr class="memdesc:a749665c9727493530ce0602cbc7aa77f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="separator:a749665c9727493530ce0602cbc7aa77f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ce00c0f2a6846ecea44d9e98ccb3cb5" id="r_a8ce00c0f2a6846ecea44d9e98ccb3cb5"><td class="memItemLeft" align="right" valign="top"><a id="a8ce00c0f2a6846ecea44d9e98ccb3cb5" name="a8ce00c0f2a6846ecea44d9e98ccb3cb5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>EigenResult</b> (const Scalar &amp;lambda, const Eigen::Matrix&lt; Scalar, Eigen::Dynamic, 1 &gt; &amp;vec, int iters, bool conv)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>EigenResult</b> (<a class="el" href="classMatrix.html">const</a> <a class="el" href="classMatrix.html">Scalar</a> &amp;<a class="el" href="classMatrix.html">lambda</a>, <a class="el" href="classMatrix.html">const</a> <a class="el" href="classMatrix.html#a12d35ef1824cd847868a8703035b0d5d">Eigen::Matrix</a>&lt; <a class="el" href="classMatrix.html">Scalar</a>, <a class="el" href="classMatrix.html#a12d35ef1824cd847868a8703035b0d5d">Eigen::Dynamic</a>, 1 &gt; &amp;<a class="el" href="classMatrix.html">vec</a>, <a class="el" href="classMatrix.html">int</a> <a class="el" href="classMatrix.html">iters</a>, <a class="el" href="classMatrix.html">bool</a> <a class="el" href="classMatrix.html">conv</a>)</td></tr>
+<tr class="memdesc:a8ce00c0f2a6846ecea44d9e98ccb3cb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Full constructor. <br /></td></tr>
 <tr class="separator:a8ce00c0f2a6846ecea44d9e98ccb3cb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:ad8182926cf2af6dca1a4a77f4b780772" id="r_ad8182926cf2af6dca1a4a77f4b780772"><td class="memItemLeft" align="right" valign="top"><a id="ad8182926cf2af6dca1a4a77f4b780772" name="ad8182926cf2af6dca1a4a77f4b780772"></a>
-Scalar&#160;</td><td class="memItemRight" valign="bottom"><b>eigenvalue</b></td></tr>
+<a class="el" href="classMatrix.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><b>eigenvalue</b></td></tr>
+<tr class="memdesc:ad8182926cf2af6dca1a4a77f4b780772"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computed eigenvalue. <br /></td></tr>
 <tr class="separator:ad8182926cf2af6dca1a4a77f4b780772"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79285ad1efcc16ae577a59427ee49b69" id="r_a79285ad1efcc16ae577a59427ee49b69"><td class="memItemLeft" align="right" valign="top"><a id="a79285ad1efcc16ae577a59427ee49b69" name="a79285ad1efcc16ae577a59427ee49b69"></a>
-Eigen::Matrix&lt; Scalar, Eigen::Dynamic, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>eigenvector</b></td></tr>
+<a class="el" href="classMatrix.html#a12d35ef1824cd847868a8703035b0d5d">Eigen::Matrix</a>&lt; <a class="el" href="classMatrix.html">Scalar</a>, <a class="el" href="classMatrix.html#a12d35ef1824cd847868a8703035b0d5d">Eigen::Dynamic</a>, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>eigenvector</b></td></tr>
+<tr class="memdesc:a79285ad1efcc16ae577a59427ee49b69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Corresponding normalized eigenvector. <br /></td></tr>
 <tr class="separator:a79285ad1efcc16ae577a59427ee49b69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47d608e446f6562c58388f59965a6107" id="r_a47d608e446f6562c58388f59965a6107"><td class="memItemLeft" align="right" valign="top"><a id="a47d608e446f6562c58388f59965a6107" name="a47d608e446f6562c58388f59965a6107"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>iterations</b> = 0</td></tr>
+<a class="el" href="classMatrix.html">int</a>&#160;</td><td class="memItemRight" valign="bottom"><b>iterations</b> = 0</td></tr>
+<tr class="memdesc:a47d608e446f6562c58388f59965a6107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of iterations performed. <br /></td></tr>
 <tr class="separator:a47d608e446f6562c58388f59965a6107"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae56a1c77c54ea5f3957c86da2f58d9ae" id="r_ae56a1c77c54ea5f3957c86da2f58d9ae"><td class="memItemLeft" align="right" valign="top"><a id="ae56a1c77c54ea5f3957c86da2f58d9ae" name="ae56a1c77c54ea5f3957c86da2f58d9ae"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>converged</b> = false</td></tr>
+<a class="el" href="classMatrix.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><b>converged</b> = <a class="el" href="classMatrix.html">false</a></td></tr>
+<tr class="memdesc:ae56a1c77c54ea5f3957c86da2f58d9ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the solver converged successfully. <br /></td></tr>
 <tr class="separator:ae56a1c77c54ea5f3957c86da2f58d9ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;<a class="el" href="classMatrix.html">typename</a> <a class="el" href="classMatrix.html">Scalar</a>&gt;<br />
+struct EigenResult&lt; Scalar &gt;</div><p>Stores the result of algorithms that compute one eigenvalue and eigenvector. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Scalar</td><td>Numeric type of the matrix (<a class="el" href="classMatrix.html#a12d35ef1824cd847868a8703035b0d5d" title="Default constructor: empty Matrix, no stored object.">e.g</a>., double).</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This struct is used by:</p><ul>
+<li>Power method</li>
+<li>Shifted power / shifted inverse power </li>
+</ul>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>result/<a class="el" href="eigen__result_8hpp_source.html">eigen_result.hpp</a></li>
 </ul>
 </div><!-- contents -->

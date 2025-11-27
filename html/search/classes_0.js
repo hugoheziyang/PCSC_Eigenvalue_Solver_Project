@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['eigenresult_0',['EigenResult',['../structEigenResult.html',1,'']]]
+  ['box_0',['Box',['../classBox.html',1,'']]],
+  ['boxtyped_1',['BoxTyped',['../classBoxTyped.html',1,'']]]
 ];

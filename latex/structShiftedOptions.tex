@@ -1,18 +1,43 @@
 \doxysection{Shifted\+Options\texorpdfstring{$<$}{<} Scalar \texorpdfstring{$>$}{>} Struct Template Reference}
 \hypertarget{structShiftedOptions}{}\label{structShiftedOptions}\index{ShiftedOptions$<$ Scalar $>$@{ShiftedOptions$<$ Scalar $>$}}
+
+
+Options for solvers that use a spectral shift (\doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{e.\+g}. shifted inverse power).  
+
+
+
+
+{\ttfamily \#include $<$shifted\+\_\+option.\+hpp$>$}
+
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{structShiftedOptions_a924733fdd2bcd5bc3f049e70a11a93c3}\label{structShiftedOptions_a924733fdd2bcd5bc3f049e70a11a93c3} 
-{\bfseries Shifted\+Options} (Scalar s=Scalar(0))
-\end{DoxyCompactItemize}
+{\bfseries Shifted\+Options} (\mbox{\hyperlink{classMatrix}{Scalar}} \mbox{\hyperlink{classMatrix}{s}}=\mbox{\hyperlink{classMatrix}{Scalar}}(0))
+\begin{DoxyCompactList}\small\item\em Constructor (defaults to shift = 0). \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{structShiftedOptions_a3ab5be84578ea7326005a45160fdc7cd}\label{structShiftedOptions_a3ab5be84578ea7326005a45160fdc7cd} 
-Scalar {\bfseries shift}
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{classMatrix}{Scalar}} {\bfseries shift}
+\begin{DoxyCompactList}\small\item\em Value of the shift $\sigma$. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$\mbox{\hyperlink{classMatrix}{typename}} \mbox{\hyperlink{classMatrix}{Scalar}}$>$\newline
+struct Shifted\+Options$<$ Scalar $>$}
+Options for solvers that use a spectral shift (\doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{e.\+g}. shifted inverse power). 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Scalar} & Numeric type (\doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{e.\+g}. double, float, \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{std\+::complex}).\\
+\hline
+\end{DoxyTemplParams}
+This struct stores the value of the shift $\sigma$ used in\+:
+\begin{DoxyItemize}
+\item Shifted power method\+: $ A - \sigma I $
+\item Shifted inverse iteration\+: $ (A - \sigma I)^{-1} $ 
+\end{DoxyItemize}
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
