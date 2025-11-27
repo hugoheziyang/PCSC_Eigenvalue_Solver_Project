@@ -1,10 +1,11 @@
 find_package(GTest REQUIRED)
 
-# Test for EigenMatrixAdapter
-add_executable(eigen_matrix_adapter_test
-    eigen_matrix_adapter_test.cpp
+# Test for Matrix wrapper
+add_executable(matrix_wrapper_test
+    matrix_wrapper_test.cpp
 )
-target_link_libraries(eigen_matrix_adapter_test
+
+target_link_libraries(matrix_wrapper_test
     PRIVATE
         PCSC_Eigenvalue_Solver_Project_Library
         GTest::gtest
@@ -12,3 +13,4 @@ target_link_libraries(eigen_matrix_adapter_test
 )
 
 
+add_test(NAME matrix_wrapper_test COMMAND matrix_wrapper_test)

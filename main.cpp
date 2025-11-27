@@ -1,40 +1,40 @@
+/**
+ * @file main.cpp
+ * @brief Minimal demonstration of the Matrix wrapper and solver interface.
+ *
+ * NOTE:
+ * This file exists only as an example entry point. In normal use,
+ * end-users will write their own main() and simply link against
+ * the PCSC_Eigenvalue_Solver_Project library.
+ *
+ * You may freely modify or remove this file depending on your needs.
+ */
+
 #include <iostream>
-#include <Eigen/Core>
+#include <Eigen/Dense>
 
-#include "core/types.hpp"
-#include "matrix/eigen_matrix_adapter.hpp"
+#include "matrix/matrix.hpp"   // Wrapper class
 
-int main() {
-    using Scalar = double;
-    using VectorType = Vector<Scalar>;
-    using DenseMatrix = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
+int main()
+{
+    std::cout << "=== Example: Matrix Wrapper Demo ===\n";
 
-    DenseMatrix A(3, 3);
-    A << 4.0, 1.0, 0.0,
-         1.0, 3.0, 1.0,
-         0.0, 1.0, 2.0;
+    // Construct an Eigen dense matrix
+    Eigen::MatrixXd A(2,2);
+    A << 4.0, 1.0,
+         2.0, 3.0;
 
-    EigenMatrixAdapter<Scalar> adapter(A);
+    // Wrap into your Matrix class
+    Matrix M(A);
 
-    VectorType x(3);
-    x << 1.0, 2.0, 3.0;
+    std::cout << "Stored matrix is dense? " << std::boolalpha << M.isDense() << "\n";
+    std::cout << "Scalar type: " << M.scalar_type().name() << "\n";
 
-    VectorType y = adapter.multiply(x);
-    std::cout << "A * x =\n" << y << "\n\n";
+    // Retrieve underlying matrix via cast<T>()
+    Eigen::MatrixXd& R = M.cast<Eigen::MatrixXd>();
 
-    VectorType rhs(3);
-    rhs << 1.0, 0.0, 0.0;
+    std::cout << "Matrix contents:\n" << R << "\n";
 
-    Scalar shift = 0.5;
-    VectorType sol = adapter.solveShifted(rhs, shift);
-
-    std::cout << "Solution of (A - shift I) x = rhs\n";
-    std::cout << sol << "\n\n";
-
-    std::cout << "A(1, 1) = " << adapter.get(1, 1) << "\n";
-
-    adapter.set(1, 1, 10.0);
-    std::cout << "A modified\n" << adapter.eigenMatrix() << "\n";
-
+    std::cout << "Demo completed.\n";
     return 0;
 }
