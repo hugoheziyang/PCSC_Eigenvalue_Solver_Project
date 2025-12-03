@@ -9,6 +9,7 @@
 
 #include "../box/box.hpp"
 #include "../box/box_typed.hpp"
+#include "../core/types.hpp"
 
 #include <memory>
 #include <stdexcept>
@@ -33,11 +34,11 @@
 class Matrix {
 public:
     /// Canonical dense matrix type alias.
-    template <typename Scalar>
+    template <ScalarConcept Scalar>
     using Dense = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
 
     /// Canonical sparse matrix type alias.
-    template <typename Scalar>
+    template <ScalarConcept Scalar>
     using Sparse = Eigen::SparseMatrix<Scalar>;
 
     /// Default constructor deleted: a Matrix must always hold a value.
@@ -65,6 +66,7 @@ public:
      * @param m Dense Eigen expression to copy into the wrapper.
      */
     template <typename Derived>
+        requires ScalarConcept<typename Derived::Scalar>
     explicit Matrix(const Eigen::MatrixBase<Derived>& m)
         : isDense_(true)
         , scalarType_(&typeid(typename Derived::Scalar))
@@ -82,7 +84,7 @@ public:
      * @tparam StorageIndex Index type used by the input sparse matrix.
      * @param m             Input sparse matrix.
      */
-    template <typename Scalar, int Options, typename StorageIndex>
+    template <ScalarConcept Scalar, int Options, typename StorageIndex>
     explicit Matrix(const Eigen::SparseMatrix<Scalar, Options, StorageIndex>& m)
         : isDense_(false)
         , scalarType_(&typeid(Scalar))
@@ -102,7 +104,7 @@ public:
      *
      * @throws std::runtime_error If data.size() != rows * cols.
      */
-    template <typename Scalar>
+    template <ScalarConcept Scalar>
     Matrix(const std::vector<Scalar>& data,
            std::size_t rows,
            std::size_t cols)
@@ -181,6 +183,7 @@ public:
 private:
     // Helper factory for dense matrices
     template <typename Derived>
+        requires ScalarConcept<typename Derived::Scalar> 
     static std::unique_ptr<Box>
     make_dense(const Eigen::MatrixBase<Derived>& m)
     {
@@ -190,7 +193,7 @@ private:
     }
 
     // Helper factory for sparse matrices
-    template <typename Scalar, int Options, typename StorageIndex>
+    template <ScalarConcept Scalar, int Options, typename StorageIndex>
     static std::unique_ptr<Box>
     make_sparse(const Eigen::SparseMatrix<Scalar, Options, StorageIndex>& m)
     {
@@ -199,7 +202,7 @@ private:
     }
 
     // Helper factory for construction from std::vector
-    template <typename Scalar>
+    template <ScalarConcept Scalar>
     static std::unique_ptr<Box>
     make_from_vector(const std::vector<Scalar>& data,
                      std::size_t rows,
