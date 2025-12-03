@@ -13,7 +13,7 @@
 #include <iostream>
 #include <Eigen/Dense>
 
-#include "matrix/matrix.hpp"   // Wrapper class
+#include "src/matrix/matrix.hpp"   // Wrapper class
 
 int main()
 {
