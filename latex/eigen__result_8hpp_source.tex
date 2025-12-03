@@ -3,30 +3,31 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <Eigen/Dense>}}
-\DoxyCodeLine{00008\ }
-\DoxyCodeLine{00019\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Scalar>}
-\DoxyCodeLine{00020\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structEigenResult}{EigenResult}}\ \{}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classMatrix}{Scalar}}\ \mbox{\hyperlink{structEigenResult_ad8182926cf2af6dca1a4a77f4b780772}{eigenvalue}};}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen::Matrix<Scalar,\ Eigen::Dynamic,\ 1>}}\ \mbox{\hyperlink{structEigenResult_a79285ad1efcc16ae577a59427ee49b69}{eigenvector}};}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structEigenResult_a47d608e446f6562c58388f59965a6107}{iterations}}\ =\ 0;}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structEigenResult_ae56a1c77c54ea5f3957c86da2f58d9ae}{converged}}\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{structEigenResult_a749665c9727493530ce0602cbc7aa77f}{EigenResult}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{structEigenResult_a8ce00c0f2a6846ecea44d9e98ccb3cb5}{EigenResult}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classMatrix}{Scalar}}\&\ \mbox{\hyperlink{classMatrix}{lambda}},}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen::Matrix<Scalar,\ Eigen::Dynamic,\ 1>}}\&\ \mbox{\hyperlink{classMatrix}{vec}},}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classMatrix}{iters}},}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classMatrix}{conv}})}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structEigenResult_ad8182926cf2af6dca1a4a77f4b780772}{eigenvalue}}(\mbox{\hyperlink{classMatrix}{lambda}})}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ ,\ \mbox{\hyperlink{structEigenResult_a79285ad1efcc16ae577a59427ee49b69}{eigenvector}}(\mbox{\hyperlink{classMatrix}{vec}})}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ ,\ \mbox{\hyperlink{structEigenResult_a47d608e446f6562c58388f59965a6107}{iterations}}(\mbox{\hyperlink{classMatrix}{iters}})}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ ,\ \mbox{\hyperlink{structEigenResult_ae56a1c77c54ea5f3957c86da2f58d9ae}{converged}}(\mbox{\hyperlink{classMatrix}{conv}})}
-\DoxyCodeLine{00046\ \ \ \ \ \{\}}
-\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../core/types.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <Eigen/Dense>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{template}\ <ScalarConcept\ Scalar>}
+\DoxyCodeLine{00021\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structEigenResult}{EigenResult}}\ \{}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00024\ \ \ \ \ Scalar\ \mbox{\hyperlink{structEigenResult_ad8182926cf2af6dca1a4a77f4b780772}{eigenvalue}};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen::Matrix<Scalar,\ Eigen::Dynamic,\ 1>}}\ \mbox{\hyperlink{structEigenResult_a79285ad1efcc16ae577a59427ee49b69}{eigenvector}};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structEigenResult_a47d608e446f6562c58388f59965a6107}{iterations}}\ =\ 0;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structEigenResult_ae56a1c77c54ea5f3957c86da2f58d9ae}{converged}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{structEigenResult_a749665c9727493530ce0602cbc7aa77f}{EigenResult}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{structEigenResult_a8ce00c0f2a6846ecea44d9e98ccb3cb5}{EigenResult}}(\textcolor{keyword}{const}\ Scalar\&\ \mbox{\hyperlink{classMatrix}{lambda}},}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen::Matrix<Scalar,\ Eigen::Dynamic,\ 1>}}\&\ \mbox{\hyperlink{classMatrix}{vec}},}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classMatrix}{iters}},}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classMatrix}{conv}})}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structEigenResult_ad8182926cf2af6dca1a4a77f4b780772}{eigenvalue}}(\mbox{\hyperlink{classMatrix}{lambda}})}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ ,\ \mbox{\hyperlink{structEigenResult_a79285ad1efcc16ae577a59427ee49b69}{eigenvector}}(\mbox{\hyperlink{classMatrix}{vec}})}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ ,\ \mbox{\hyperlink{structEigenResult_a47d608e446f6562c58388f59965a6107}{iterations}}(\mbox{\hyperlink{classMatrix}{iters}})}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ ,\ \mbox{\hyperlink{structEigenResult_ae56a1c77c54ea5f3957c86da2f58d9ae}{converged}}(\mbox{\hyperlink{classMatrix}{conv}})}
+\DoxyCodeLine{00047\ \ \ \ \ \{\}}
+\DoxyCodeLine{00048\ \};}
 
 \end{DoxyCode}

@@ -1,0 +1,84 @@
+\doxysection{power\+\_\+method/solve\+\_\+shifted.hpp File Reference}
+\hypertarget{solve__shifted_8hpp}{}\label{solve__shifted_8hpp}\index{power\_method/solve\_shifted.hpp@{power\_method/solve\_shifted.hpp}}
+
+
+Solve the shifted linear system (A -\/ λ I) x = b using Eigen.  
+
+
+{\ttfamily \#include "{}../matrix/matrix.\+hpp"{}}\newline
+{\ttfamily \#include "{}../option/shifted\+\_\+option.\+hpp"{}}\newline
+{\ttfamily \#include "{}../core/types.\+hpp"{}}\newline
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Sparse$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Sparse\+LU$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$typeinfo$>$}\newline
+Include dependency graph for solve\+\_\+shifted.\+hpp\+:
+% FIG 0
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{classMatrix}{Scalar\+Concept}} Scalar$>$ }\\\mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix}}$<$ Scalar, \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Dynamic}}, 1 $>$ \mbox{\hyperlink{solve__shifted_8hpp_a6008b7a1caf6b498cd4ff8179de2b032}{solve\+\_\+shifted\+\_\+linear\+\_\+system}} (\mbox{\hyperlink{classMatrix}{const}} \mbox{\hyperlink{classMatrix}{Matrix}} \&\mbox{\hyperlink{classMatrix}{A\+\_\+wrapped}}, \mbox{\hyperlink{classMatrix}{const}} \mbox{\hyperlink{structShiftedOptions}{Shifted\+Options}}$<$ Scalar $>$ \&\mbox{\hyperlink{classMatrix}{opts}}, \mbox{\hyperlink{classMatrix}{const}} \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix}}$<$ Scalar, \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Dynamic}}, 1 $>$ \&\mbox{\hyperlink{classMatrix}{b}})
+\begin{DoxyCompactList}\small\item\em Solve the shifted system (A -\/ λ I) x = b. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Solve the shifted linear system (A -\/ λ I) x = b using Eigen. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{solve__shifted_8hpp_a6008b7a1caf6b498cd4ff8179de2b032}\label{solve__shifted_8hpp_a6008b7a1caf6b498cd4ff8179de2b032} 
+\index{solve\_shifted.hpp@{solve\_shifted.hpp}!solve\_shifted\_linear\_system@{solve\_shifted\_linear\_system}}
+\index{solve\_shifted\_linear\_system@{solve\_shifted\_linear\_system}!solve\_shifted.hpp@{solve\_shifted.hpp}}
+\doxysubsubsection{\texorpdfstring{solve\_shifted\_linear\_system()}{solve\_shifted\_linear\_system()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{classMatrix}{Scalar\+Concept}} Scalar$>$ \\
+\mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix}}$<$ Scalar, \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Dynamic}}, 1 $>$ solve\+\_\+shifted\+\_\+linear\+\_\+system (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMatrix}{const}} \mbox{\hyperlink{classMatrix}{Matrix}} \&}]{A\+\_\+wrapped,  }\item[{\mbox{\hyperlink{classMatrix}{const}} \mbox{\hyperlink{structShiftedOptions}{Shifted\+Options}}$<$ Scalar $>$ \&}]{opts,  }\item[{\mbox{\hyperlink{classMatrix}{const}} \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix}}$<$ Scalar, \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Dynamic}}, 1 $>$ \&}]{b }\end{DoxyParamCaption})}
+
+
+
+Solve the shifted system (A -\/ λ I) x = b. 
+
+This function works with both dense and sparse matrices stored inside the \doxylink{classMatrix}{Matrix} wrapper\+:
+
+
+\begin{DoxyItemize}
+\item If \doxylink{classMatrix_a75e07c6e7201be7839b96eec1b719315}{A\+\_\+wrapped.\+is\+Dense()} is true, it expects the underlying type to be \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix$<$\+Scalar, Dynamic, Dynamic$>$} and uses \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Partial\+Piv\+LU} for solving.
+\item If \doxylink{classMatrix_a75e07c6e7201be7839b96eec1b719315}{A\+\_\+wrapped.\+is\+Dense()} is false, it expects the underlying type to be \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Sparse\+Matrix$<$\+Scalar$>$} (the canonical sparse type used by \doxylink{classMatrix}{Matrix}) and uses \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Sparse\+LU}.
+\end{DoxyItemize}
+
+In both cases it forms \begin{DoxyVerb} M = A - λ I
+\end{DoxyVerb}
+ and then solves M x = b.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Scalar} & Numeric type satisfying Scalar\+Concept.\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em A\+\_\+wrapped} & \doxylink{classMatrix}{Matrix} wrapper holding the system matrix A. \\
+\hline
+{\em opts} & Shift options (contains the shift λ). \\
+\hline
+{\em b} & Right-\/hand side vector b (size n).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix$<$\+Scalar, Dynamic, 1$>$} Solution vector x.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{std\+::runtime\+\_\+error}} & if\+:
+\begin{DoxyItemize}
+\item A\+\_\+wrapped is empty,
+\item scalar type of A\+\_\+wrapped does not match Scalar,
+\item A is not square,
+\item dimensions of A and b are incompatible,
+\item or the sparse solver reports failure. 
+\end{DoxyItemize}\\
+\hline
+{\em \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{std\+::bad\+\_\+cast}} & if the stored type inside \doxylink{classMatrix}{Matrix} is not the expected Eigen dense or sparse matrix type. \\
+\hline
+\end{DoxyExceptions}

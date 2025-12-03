@@ -16,13 +16,13 @@ Stores the output of QR-\/based eigenvalue solvers.
 {\bfseries QRResult} ()=\mbox{\hyperlink{classMatrix}{default}}
 \begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
 \Hypertarget{structQRResult_ade539cf498c9d896565d13ec527c4bef}\label{structQRResult_ade539cf498c9d896565d13ec527c4bef} 
-{\bfseries QRResult} (\mbox{\hyperlink{classMatrix}{const}} \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix}}$<$ \mbox{\hyperlink{classMatrix}{Scalar}}, \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Dynamic}}, 1 $>$ \&\mbox{\hyperlink{classMatrix}{eigvals}}, \mbox{\hyperlink{classMatrix}{int}} \mbox{\hyperlink{classMatrix}{iters}}, \mbox{\hyperlink{classMatrix}{bool}} \mbox{\hyperlink{classMatrix}{conv}})
+{\bfseries QRResult} (\mbox{\hyperlink{classMatrix}{const}} \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix}}$<$ Scalar, \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Dynamic}}, 1 $>$ \&\mbox{\hyperlink{classMatrix}{eigvals}}, \mbox{\hyperlink{classMatrix}{int}} \mbox{\hyperlink{classMatrix}{iters}}, \mbox{\hyperlink{classMatrix}{bool}} \mbox{\hyperlink{classMatrix}{conv}})
 \begin{DoxyCompactList}\small\item\em Full constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{structQRResult_a03489a39dee83c4625023b4ae3e4b16f}\label{structQRResult_a03489a39dee83c4625023b4ae3e4b16f} 
-\mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix}}$<$ \mbox{\hyperlink{classMatrix}{Scalar}}, \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Dynamic}}, 1 $>$ {\bfseries eigenvalues}
+\mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix}}$<$ Scalar, \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Dynamic}}, 1 $>$ {\bfseries eigenvalues}
 \begin{DoxyCompactList}\small\item\em Computed eigenvalues (typically sorted, depending on implementation). \end{DoxyCompactList}\item 
 \Hypertarget{structQRResult_a1bfd672b062600192883425df8026a13}\label{structQRResult_a1bfd672b062600192883425df8026a13} 
 \mbox{\hyperlink{classMatrix}{int}} {\bfseries iterations} = 0
@@ -33,7 +33,7 @@ Stores the output of QR-\/based eigenvalue solvers.
 
 
 \doxysubsection{Detailed Description}
-\subsubsection*{template$<$\mbox{\hyperlink{classMatrix}{typename}} \mbox{\hyperlink{classMatrix}{Scalar}}$>$\newline
+\subsubsection*{template$<$\mbox{\hyperlink{classMatrix}{Scalar\+Concept}} Scalar$>$\newline
 struct QRResult$<$ Scalar $>$}
 Stores the output of QR-\/based eigenvalue solvers. 
 

@@ -9,6 +9,10 @@ Stores the result of algorithms that compute one eigenvalue and eigenvector.
 
 {\ttfamily \#include $<$eigen\+\_\+result.\+hpp$>$}
 
+
+
+Collaboration diagram for Eigen\+Result\texorpdfstring{$<$}{<} Scalar \texorpdfstring{$>$}{>}\+:
+% FIG 0
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -16,16 +20,16 @@ Stores the result of algorithms that compute one eigenvalue and eigenvector.
 {\bfseries Eigen\+Result} ()=\mbox{\hyperlink{classMatrix}{default}}
 \begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
 \Hypertarget{structEigenResult_a8ce00c0f2a6846ecea44d9e98ccb3cb5}\label{structEigenResult_a8ce00c0f2a6846ecea44d9e98ccb3cb5} 
-{\bfseries Eigen\+Result} (\mbox{\hyperlink{classMatrix}{const}} \mbox{\hyperlink{classMatrix}{Scalar}} \&\mbox{\hyperlink{classMatrix}{lambda}}, \mbox{\hyperlink{classMatrix}{const}} \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix}}$<$ \mbox{\hyperlink{classMatrix}{Scalar}}, \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Dynamic}}, 1 $>$ \&\mbox{\hyperlink{classMatrix}{vec}}, \mbox{\hyperlink{classMatrix}{int}} \mbox{\hyperlink{classMatrix}{iters}}, \mbox{\hyperlink{classMatrix}{bool}} \mbox{\hyperlink{classMatrix}{conv}})
+{\bfseries Eigen\+Result} (\mbox{\hyperlink{classMatrix}{const}} Scalar \&\mbox{\hyperlink{classMatrix}{lambda}}, \mbox{\hyperlink{classMatrix}{const}} \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix}}$<$ Scalar, \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Dynamic}}, 1 $>$ \&\mbox{\hyperlink{classMatrix}{vec}}, \mbox{\hyperlink{classMatrix}{int}} \mbox{\hyperlink{classMatrix}{iters}}, \mbox{\hyperlink{classMatrix}{bool}} \mbox{\hyperlink{classMatrix}{conv}})
 \begin{DoxyCompactList}\small\item\em Full constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{structEigenResult_ad8182926cf2af6dca1a4a77f4b780772}\label{structEigenResult_ad8182926cf2af6dca1a4a77f4b780772} 
-\mbox{\hyperlink{classMatrix}{Scalar}} {\bfseries eigenvalue}
+Scalar {\bfseries eigenvalue}
 \begin{DoxyCompactList}\small\item\em Computed eigenvalue. \end{DoxyCompactList}\item 
 \Hypertarget{structEigenResult_a79285ad1efcc16ae577a59427ee49b69}\label{structEigenResult_a79285ad1efcc16ae577a59427ee49b69} 
-\mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix}}$<$ \mbox{\hyperlink{classMatrix}{Scalar}}, \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Dynamic}}, 1 $>$ {\bfseries eigenvector}
+\mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix}}$<$ Scalar, \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Dynamic}}, 1 $>$ {\bfseries eigenvector}
 \begin{DoxyCompactList}\small\item\em Corresponding normalized eigenvector. \end{DoxyCompactList}\item 
 \Hypertarget{structEigenResult_a47d608e446f6562c58388f59965a6107}\label{structEigenResult_a47d608e446f6562c58388f59965a6107} 
 \mbox{\hyperlink{classMatrix}{int}} {\bfseries iterations} = 0
@@ -36,7 +40,7 @@ Stores the result of algorithms that compute one eigenvalue and eigenvector.
 
 
 \doxysubsection{Detailed Description}
-\subsubsection*{template$<$\mbox{\hyperlink{classMatrix}{typename}} \mbox{\hyperlink{classMatrix}{Scalar}}$>$\newline
+\subsubsection*{template$<$\mbox{\hyperlink{classMatrix}{Scalar\+Concept}} Scalar$>$\newline
 struct Eigen\+Result$<$ Scalar $>$}
 Stores the result of algorithms that compute one eigenvalue and eigenvector. 
 

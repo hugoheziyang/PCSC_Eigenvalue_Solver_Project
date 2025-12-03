@@ -15,11 +15,12 @@ Type-\/erased wrapper that stores dense or sparse Eigen matrices.
 \Hypertarget{classMatrix_a12d35ef1824cd847868a8703035b0d5d}\label{classMatrix_a12d35ef1824cd847868a8703035b0d5d} 
 {\bfseries Matrix} ()=\mbox{\hyperlink{classMatrix}{default}}
 \begin{DoxyCompactList}\small\item\em Default constructor\+: empty \doxylink{classMatrix}{Matrix}, no stored object. \end{DoxyCompactList}\item 
-{\footnotesize template$<$\mbox{\hyperlink{classMatrix}{typename}} \mbox{\hyperlink{classMatrix}{Derived}} $>$ }\\\mbox{\hyperlink{classMatrix_a1a0b399fb1066a97d922d91e9ed2bc3f}{Matrix}} (\mbox{\hyperlink{classMatrix}{const}} Eigen\+::\+Matrix\+Base$<$ \mbox{\hyperlink{classMatrix}{Derived}} $>$ \&\mbox{\hyperlink{classMatrix}{m}})
+{\footnotesize template$<$\mbox{\hyperlink{classMatrix}{typename}} \mbox{\hyperlink{classMatrix}{Derived}} $>$ \newline
+requires \mbox{\hyperlink{classMatrix}{Scalar\+Concept}}$<$\mbox{\hyperlink{classMatrix}{typename}} Derived\+::\+Scalar$>$}\\\mbox{\hyperlink{classMatrix_ab0f3e6ea82c6fb02be3a02f6d5c6f26d}{Matrix}} (\mbox{\hyperlink{classMatrix}{const}} Eigen\+::\+Matrix\+Base$<$ \mbox{\hyperlink{classMatrix}{Derived}} $>$ \&\mbox{\hyperlink{classMatrix}{m}})
 \begin{DoxyCompactList}\small\item\em Construct from any Eigen {\itshape dense} expression. \end{DoxyCompactList}\item 
-{\footnotesize template$<$\mbox{\hyperlink{classMatrix}{typename}} \mbox{\hyperlink{classMatrix}{Scalar}} , \mbox{\hyperlink{classMatrix}{int}} Options, \mbox{\hyperlink{classMatrix}{typename}} \mbox{\hyperlink{classMatrix}{Storage\+Index}} $>$ }\\\mbox{\hyperlink{classMatrix_a5dbde436c14e8376532b0aa85df7c815}{Matrix}} (\mbox{\hyperlink{classMatrix}{const}} Eigen\+::\+Sparse\+Matrix$<$ \mbox{\hyperlink{classMatrix}{Scalar}}, \mbox{\hyperlink{classMatrix}{Options}}, \mbox{\hyperlink{classMatrix}{Storage\+Index}} $>$ \&\mbox{\hyperlink{classMatrix}{m}})
+{\footnotesize template$<$\mbox{\hyperlink{classMatrix}{Scalar\+Concept}} Scalar, \mbox{\hyperlink{classMatrix}{int}} Options, \mbox{\hyperlink{classMatrix}{typename}} \mbox{\hyperlink{classMatrix}{Storage\+Index}} $>$ }\\\mbox{\hyperlink{classMatrix_a5dbde436c14e8376532b0aa85df7c815}{Matrix}} (\mbox{\hyperlink{classMatrix}{const}} Eigen\+::\+Sparse\+Matrix$<$ Scalar, \mbox{\hyperlink{classMatrix}{Options}}, \mbox{\hyperlink{classMatrix}{Storage\+Index}} $>$ \&\mbox{\hyperlink{classMatrix}{m}})
 \begin{DoxyCompactList}\small\item\em Construct from an Eigen sparse matrix. \end{DoxyCompactList}\item 
-{\footnotesize template$<$\mbox{\hyperlink{classMatrix}{typename}} \mbox{\hyperlink{classMatrix}{Scalar}} $>$ }\\\mbox{\hyperlink{classMatrix_aa81b58bcc74ece79632881f9c0795ed6}{Matrix}} (\mbox{\hyperlink{classMatrix}{const}} std\+::vector$<$ \mbox{\hyperlink{classMatrix}{Scalar}} $>$ \&\mbox{\hyperlink{classMatrix}{data}}, std\+::size\+\_\+t \mbox{\hyperlink{classMatrix}{rows}}, std\+::size\+\_\+t \mbox{\hyperlink{classMatrix}{cols}})
+{\footnotesize template$<$\mbox{\hyperlink{classMatrix}{Scalar\+Concept}} Scalar$>$ }\\\mbox{\hyperlink{classMatrix_aa81b58bcc74ece79632881f9c0795ed6}{Matrix}} (\mbox{\hyperlink{classMatrix}{const}} std\+::vector$<$ Scalar $>$ \&\mbox{\hyperlink{classMatrix}{data}}, std\+::size\+\_\+t \mbox{\hyperlink{classMatrix}{rows}}, std\+::size\+\_\+t \mbox{\hyperlink{classMatrix}{cols}})
 \begin{DoxyCompactList}\small\item\em Construct from a flat \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{std\+::vector$<$\+Scalar$>$} and shape (rows, cols). \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classMatrix_abcf708e864ed3d9db2c3b317c5e529ab}{Matrix}} (\mbox{\hyperlink{classMatrix}{const}} \mbox{\hyperlink{classMatrix}{Matrix}} \&\mbox{\hyperlink{classMatrix}{other}})
 \begin{DoxyCompactList}\small\item\em Copy constructor\+: performs a deep copy of the stored object. \end{DoxyCompactList}\item 
@@ -56,17 +57,18 @@ Type-\/erased wrapper that stores dense or sparse Eigen matrices.
 Internally, \doxylink{classMatrix}{Matrix} holds a \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{std\+::unique\+\_\+ptr$<$\+Box$>$} that actually points to a Box\+Typed$<$\+T$>$ where T is either\+:
 \begin{DoxyItemize}
 \item a dense \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix$<$\+Scalar, Dynamic, Dynamic$>$}, or
-\item a sparse \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Sparse\+Matrix$<$\+Scalar, Options, Storage\+Index$>$}.
+\item a sparse \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Sparse\+Matrix$<$\+Scalar$>$} (canonical sparse type).
 \end{DoxyItemize}
 
 For \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{std\+::vector$<$\+Scalar$>$} input, the data is always converted into a dense \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix$<$\+Scalar, Dynamic, Dynamic$>$}. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{classMatrix_a1a0b399fb1066a97d922d91e9ed2bc3f}\label{classMatrix_a1a0b399fb1066a97d922d91e9ed2bc3f} 
+\Hypertarget{classMatrix_ab0f3e6ea82c6fb02be3a02f6d5c6f26d}\label{classMatrix_ab0f3e6ea82c6fb02be3a02f6d5c6f26d} 
 \index{Matrix@{Matrix}!Matrix@{Matrix}}
 \index{Matrix@{Matrix}!Matrix@{Matrix}}
 \doxysubsubsection{\texorpdfstring{Matrix()}{Matrix()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{classMatrix}{typename}} \mbox{\hyperlink{classMatrix}{Derived}} $>$ \\
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{classMatrix}{typename}} \mbox{\hyperlink{classMatrix}{Derived}} $>$ \newline
+requires \mbox{\hyperlink{classMatrix}{Scalar\+Concept}}$<$\mbox{\hyperlink{classMatrix}{typename}} Derived\+::\+Scalar$>$\\
 Matrix\+::\+Matrix (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMatrix}{const}} Eigen\+::\+Matrix\+Base$<$ \mbox{\hyperlink{classMatrix}{Derived}} $>$ \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
 
@@ -89,19 +91,21 @@ This constructor accepts any Eigen dense expression derived from \doxylink{class
 \index{Matrix@{Matrix}!Matrix@{Matrix}}
 \index{Matrix@{Matrix}!Matrix@{Matrix}}
 \doxysubsubsection{\texorpdfstring{Matrix()}{Matrix()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{classMatrix}{typename}} \mbox{\hyperlink{classMatrix}{Scalar}} , \mbox{\hyperlink{classMatrix}{int}} Options, \mbox{\hyperlink{classMatrix}{typename}} \mbox{\hyperlink{classMatrix}{Storage\+Index}} $>$ \\
-Matrix\+::\+Matrix (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMatrix}{const}} Eigen\+::\+Sparse\+Matrix$<$ \mbox{\hyperlink{classMatrix}{Scalar}}, \mbox{\hyperlink{classMatrix}{Options}}, \mbox{\hyperlink{classMatrix}{Storage\+Index}} $>$ \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{classMatrix}{Scalar\+Concept}} Scalar, \mbox{\hyperlink{classMatrix}{int}} Options, \mbox{\hyperlink{classMatrix}{typename}} \mbox{\hyperlink{classMatrix}{Storage\+Index}} $>$ \\
+Matrix\+::\+Matrix (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMatrix}{const}} Eigen\+::\+Sparse\+Matrix$<$ Scalar, \mbox{\hyperlink{classMatrix}{Options}}, \mbox{\hyperlink{classMatrix}{Storage\+Index}} $>$ \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
 
 
 Construct from an Eigen sparse matrix. 
 
-This constructor accepts \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Sparse\+Matrix$<$\+Scalar, Options, Storage\+Index$>$} and stores it directly in \doxylink{classBoxTyped}{Box\+Typed} without conversion. \Hypertarget{classMatrix_aa81b58bcc74ece79632881f9c0795ed6}\label{classMatrix_aa81b58bcc74ece79632881f9c0795ed6} 
+This constructor accepts any \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Sparse\+Matrix$<$\+Scalar, Options, Storage\+Index$>$} and converts it into the canonical sparse type\+: \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Sparse\+Matrix$<$\+Scalar$>$} (column-\/major, int index).
+
+This ensures that all sparse matrices stored in \doxylink{classMatrix}{Matrix} have the same type, so functions can safely use \doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{cast$<$\+Eigen\+::\+Sparse\+Matrix$<$\+Scalar$>$$>$()}. \Hypertarget{classMatrix_aa81b58bcc74ece79632881f9c0795ed6}\label{classMatrix_aa81b58bcc74ece79632881f9c0795ed6} 
 \index{Matrix@{Matrix}!Matrix@{Matrix}}
 \index{Matrix@{Matrix}!Matrix@{Matrix}}
 \doxysubsubsection{\texorpdfstring{Matrix()}{Matrix()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{classMatrix}{typename}} \mbox{\hyperlink{classMatrix}{Scalar}} $>$ \\
-Matrix\+::\+Matrix (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMatrix}{const}} std\+::vector$<$ \mbox{\hyperlink{classMatrix}{Scalar}} $>$ \&}]{data,  }\item[{std\+::size\+\_\+t}]{rows,  }\item[{std\+::size\+\_\+t}]{cols }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{classMatrix}{Scalar\+Concept}} Scalar$>$ \\
+Matrix\+::\+Matrix (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMatrix}{const}} std\+::vector$<$ Scalar $>$ \&}]{data,  }\item[{std\+::size\+\_\+t}]{rows,  }\item[{std\+::size\+\_\+t}]{cols }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 

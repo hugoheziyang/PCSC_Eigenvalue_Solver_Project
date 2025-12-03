@@ -4,6 +4,7 @@
  * @brief Result type for QR eigenvalue algorithms.
  */
 
+#include "../core/types.hpp"
 #include <Eigen/Dense>
 
 /**
@@ -17,7 +18,7 @@
  *   - Number of QR iterations performed
  *   - A flag indicating whether convergence occurred
  */
-template <typename Scalar>
+template <ScalarConcept Scalar>
 struct QRResult {
 
     /// Computed eigenvalues (typically sorted, depending on implementation).

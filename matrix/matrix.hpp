@@ -6,6 +6,7 @@
 
 #include "box.hpp"
 #include "box_typed.hpp"
+#include "../core/types.hpp"
 
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
@@ -22,7 +23,7 @@
  * Internally, Matrix holds a std::unique_ptr<Box> that actually points to a
  * BoxTyped<T> where T is either:
  *   - a dense Eigen::Matrix<Scalar, Dynamic, Dynamic>, or
- *   - a sparse Eigen::SparseMatrix<Scalar, Options, StorageIndex>.
+ *   - a sparse Eigen::SparseMatrix<Scalar> (canonical sparse type).
  *
  * For std::vector<Scalar> input, the data is always converted into a dense
  * Eigen::Matrix<Scalar, Dynamic, Dynamic>.
@@ -45,6 +46,7 @@ public:
      * @param m        Input Eigen expression to be copied into the wrapper.
      */
     template <typename Derived>
+        requires ScalarConcept<typename Derived::Scalar>
     explicit Matrix(const Eigen::MatrixBase<Derived>& m)
         : isDense_(true)
         , scalarType_(&typeid(typename Derived::Scalar))
@@ -59,18 +61,24 @@ public:
     /**
      * @brief Construct from an Eigen sparse matrix.
      *
-     * This constructor accepts Eigen::SparseMatrix<Scalar, Options, StorageIndex>
-     * and stores it directly in BoxTyped without conversion.
+     * This constructor accepts any Eigen::SparseMatrix<Scalar, Options, StorageIndex>
+     * and converts it into the canonical sparse type:
+     *   Eigen::SparseMatrix<Scalar>
+     * (column-major, int index).
+     *
+     * This ensures that all sparse matrices stored in Matrix have the same type,
+     * so functions can safely use cast<Eigen::SparseMatrix<Scalar>>().
      */
-    template <typename Scalar, int Options, typename StorageIndex>
+    template <ScalarConcept Scalar, int Options, typename StorageIndex>
     explicit Matrix(
         const Eigen::SparseMatrix<Scalar, Options, StorageIndex>& m
     )
         : isDense_(false)
         , scalarType_(&typeid(Scalar))
     {
-        using SparseMat = Eigen::SparseMatrix<Scalar, Options, StorageIndex>;
-        ptr_ = std::make_unique<BoxTyped<SparseMat>>(m);
+        using CanonicalSparse = Eigen::SparseMatrix<Scalar>; // Options = 0, StorageIndex = int
+        CanonicalSparse S = m;                               // Eigen handles conversion
+        ptr_ = std::make_unique<BoxTyped<CanonicalSparse>>(S);
     }
 
     /**
@@ -81,7 +89,7 @@ public:
      * This constructor always produces a DENSE Eigen matrix regardless
      * of any future support for sparse types.
      */
-    template <typename Scalar>
+    template <ScalarConcept Scalar>
     Matrix(const std::vector<Scalar>& data, std::size_t rows, std::size_t cols)
         : isDense_(true)
         , scalarType_(&typeid(Scalar))

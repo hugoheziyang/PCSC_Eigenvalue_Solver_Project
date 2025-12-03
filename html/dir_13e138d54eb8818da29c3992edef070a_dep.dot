@@ -7,5 +7,7 @@ digraph "test"
   compound=true
   dir_13e138d54eb8818da29c3992edef070a [label="test", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_13e138d54eb8818da29c3992edef070a.html",tooltip=""];
   dir_109f68d84cef4a133396a0be144fa9b1 [label="matrix", fillcolor="#edf0f7", color="grey25", style="filled", URL="dir_109f68d84cef4a133396a0be144fa9b1.html",tooltip=""];
-  dir_13e138d54eb8818da29c3992edef070a->dir_109f68d84cef4a133396a0be144fa9b1 [headlabel="1", labeldistance=1.5 headhref="dir_000005_000000.html" href="dir_000005_000000.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_14cdc03a19eab6990dbe8117f049eb54 [label="power_method", fillcolor="#edf0f7", color="grey25", style="filled", URL="dir_14cdc03a19eab6990dbe8117f049eb54.html",tooltip=""];
+  dir_13e138d54eb8818da29c3992edef070a->dir_109f68d84cef4a133396a0be144fa9b1 [headlabel="2", labeldistance=1.5 headhref="dir_000005_000000.html" href="dir_000005_000000.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_13e138d54eb8818da29c3992edef070a->dir_14cdc03a19eab6990dbe8117f049eb54 [headlabel="1", labeldistance=1.5 headhref="dir_000005_000002.html" href="dir_000005_000002.html" color="steelblue1" fontcolor="steelblue1"];
 }

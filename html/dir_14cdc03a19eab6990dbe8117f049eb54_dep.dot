@@ -1,0 +1,11 @@
+digraph "power_method"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  dir_14cdc03a19eab6990dbe8117f049eb54 [label="power_method", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_14cdc03a19eab6990dbe8117f049eb54.html",tooltip=""];
+  dir_109f68d84cef4a133396a0be144fa9b1 [label="matrix", fillcolor="#edf0f7", color="grey25", style="filled", URL="dir_109f68d84cef4a133396a0be144fa9b1.html",tooltip=""];
+  dir_14cdc03a19eab6990dbe8117f049eb54->dir_109f68d84cef4a133396a0be144fa9b1 [headlabel="1", labeldistance=1.5 headhref="dir_000002_000000.html" href="dir_000002_000000.html" color="steelblue1" fontcolor="steelblue1"];
+}
