@@ -2,4 +2,5 @@
 build/
 .vscode/
 
-eigen-5.0.0
+# Ignore the folder produces by Doxygene
+docs/
