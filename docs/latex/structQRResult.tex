@@ -1,0 +1,54 @@
+\doxysection{QRResult\texorpdfstring{$<$}{<} Scalar \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structQRResult}{}\label{structQRResult}\index{QRResult$<$ Scalar $>$@{QRResult$<$ Scalar $>$}}
+
+
+Stores the output of QR-\/based eigenvalue solvers.  
+
+
+
+
+{\ttfamily \#include $<$qr\+\_\+result.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structQRResult_a9130c175cf0bae70c4db002ae31d8f3d}\label{structQRResult_a9130c175cf0bae70c4db002ae31d8f3d} 
+{\bfseries QRResult} ()=\mbox{\hyperlink{classMatrix}{default}}
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\Hypertarget{structQRResult_ade539cf498c9d896565d13ec527c4bef}\label{structQRResult_ade539cf498c9d896565d13ec527c4bef} 
+{\bfseries QRResult} (\mbox{\hyperlink{classMatrix}{const}} \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix}}$<$ \mbox{\hyperlink{classMatrix}{Scalar}}, \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Dynamic}}, 1 $>$ \&\mbox{\hyperlink{classMatrix}{eigvals}}, \mbox{\hyperlink{classMatrix}{int}} \mbox{\hyperlink{classMatrix}{iters}}, \mbox{\hyperlink{classMatrix}{bool}} \mbox{\hyperlink{classMatrix}{conv}})
+\begin{DoxyCompactList}\small\item\em Full constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structQRResult_a03489a39dee83c4625023b4ae3e4b16f}\label{structQRResult_a03489a39dee83c4625023b4ae3e4b16f} 
+\mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Matrix}}$<$ \mbox{\hyperlink{classMatrix}{Scalar}}, \mbox{\hyperlink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{Eigen\+::\+Dynamic}}, 1 $>$ {\bfseries eigenvalues}
+\begin{DoxyCompactList}\small\item\em Computed eigenvalues (typically sorted, depending on implementation). \end{DoxyCompactList}\item 
+\Hypertarget{structQRResult_a1bfd672b062600192883425df8026a13}\label{structQRResult_a1bfd672b062600192883425df8026a13} 
+\mbox{\hyperlink{classMatrix}{int}} {\bfseries iterations} = 0
+\begin{DoxyCompactList}\small\item\em Number of QR iterations taken. \end{DoxyCompactList}\item 
+\Hypertarget{structQRResult_a83a80ccca27718632b41dadb5af23d57}\label{structQRResult_a83a80ccca27718632b41dadb5af23d57} 
+\mbox{\hyperlink{classMatrix}{bool}} {\bfseries converged} = \mbox{\hyperlink{classMatrix}{false}}
+\begin{DoxyCompactList}\small\item\em Whether the QR iteration converged. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$\mbox{\hyperlink{classMatrix}{typename}} \mbox{\hyperlink{classMatrix}{Scalar}}$>$\newline
+struct QRResult$<$ Scalar $>$}
+Stores the output of QR-\/based eigenvalue solvers. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Scalar} & Numeric type (\doxylink{classMatrix_a12d35ef1824cd847868a8703035b0d5d}{e.\+g}., double).\\
+\hline
+\end{DoxyTemplParams}
+This struct stores\+:
+\begin{DoxyItemize}
+\item The vector of computed eigenvalues
+\item Number of QR iterations performed
+\item A flag indicating whether convergence occurred 
+\end{DoxyItemize}
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+result/qr\+\_\+result.\+hpp\end{DoxyCompactItemize}
