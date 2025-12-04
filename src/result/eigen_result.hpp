@@ -4,6 +4,7 @@
  * @brief Struct that stores the output of single-eigenpair solvers.
  */
 
+#include "../core/types.hpp"
 #include <Eigen/Dense>
 
 /**
@@ -16,7 +17,7 @@
  *   - Power method
  *   - Shifted power / shifted inverse power
  */
-template <typename Scalar>
+template <ScalarConcept Scalar>
 struct EigenResult {
 
     /// Computed eigenvalue.

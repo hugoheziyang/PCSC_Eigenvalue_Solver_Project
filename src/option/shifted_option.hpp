@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../core/types.hpp"
+
 /**
  * @file ShiftedOptions.hpp
  * @brief Defines options for shifted power and inverse power methods.
@@ -15,7 +17,7 @@
  *   - Shifted power method:      \f$ A - \sigma I \f$
  *   - Shifted inverse iteration: \f$ (A - \sigma I)^{-1} \f$
  */
-template <typename Scalar>
+template <ScalarConcept Scalar>
 struct ShiftedOptions {
     /// Value of the shift \f$\sigma\f$.
     Scalar shift;
