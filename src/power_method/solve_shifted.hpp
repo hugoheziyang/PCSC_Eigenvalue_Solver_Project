@@ -59,11 +59,7 @@ solve_shifted(
     const ShiftedOptions<Scalar>& opts,
     const Eigen::Matrix<Scalar, Eigen::Dynamic, 1>& b
 ) {
-    // ---- Basic checks common to both dense and sparse ----
-    if (!A_wrapped.has_value()) {
-        throw std::runtime_error("solve_shifted: A is empty");
-    }
-
+    // ---- Basic check common to both dense and sparse ----
     if (A_wrapped.scalar_type() != typeid(Scalar)) {
         throw std::runtime_error("solve_shifted: scalar type mismatch");
     }

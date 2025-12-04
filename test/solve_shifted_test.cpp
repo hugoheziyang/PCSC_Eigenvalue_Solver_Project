@@ -5,9 +5,9 @@
 #include <Eigen/Sparse>
 
 // Adjust these include paths to your actual project structure.
-#include "../matrix/matrix.hpp"
-#include "../core/types.hpp"
-#include "../power_method/solve_shifted.hpp"
+#include "../src/matrix/matrix.hpp"
+#include "../src/core/types.hpp"
+#include "../src/power_method/solve_shifted.hpp"
 
 // ---------------------------------------------------------------
 // Helper: check that M x ≈ b in 2-norm, with a given tolerance.
