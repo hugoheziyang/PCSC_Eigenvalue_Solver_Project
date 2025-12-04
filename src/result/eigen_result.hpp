@@ -11,11 +11,11 @@
  * @struct EigenResult
  * @brief Stores the result of algorithms that compute one eigenvalue and eigenvector.
  *
- * @tparam Scalar Numeric type of the matrix (e.g., double).
+ * @tparam Scalar Numeric type of the matrix.
  *
  * This struct is used by:
  *   - Power method
- *   - Shifted power / shifted inverse power
+ *   - Shifted inverse power
  */
 template <ScalarConcept Scalar>
 struct EigenResult {
@@ -36,13 +36,15 @@ struct EigenResult {
     EigenResult() = default;
 
     /// Full constructor.
-    EigenResult(const Scalar& lambda,
-                const Eigen::Matrix<Scalar, Eigen::Dynamic, 1>& vec,
-                int iters,
-                bool conv)
-        : eigenvalue(lambda)
-        , eigenvector(vec)
-        , iterations(iters)
-        , converged(conv)
+    EigenResult(
+        const Scalar& lambda,
+        const Eigen::Matrix<Scalar, Eigen::Dynamic, 1>& vec,
+        int iters,
+        bool conv
+    ): 
+        eigenvalue(lambda),
+        eigenvector(vec),
+        iterations(iters),
+        converged(conv)
     {}
 };

@@ -13,7 +13,6 @@ target_include_directories(eigen_interface INTERFACE
 
 
 add_library(PCSC_Eigenvalue_Solver_Project_Library
-    src/power_method/power_solver.cpp
     src/power_method/shifted_inverse_power_solver.cpp
     src/qr_method/qr_factoriser.cpp
     src/qr_method/qr_method.cpp
