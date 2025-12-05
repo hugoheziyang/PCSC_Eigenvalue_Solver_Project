@@ -17,7 +17,7 @@
  *  - reports T's type via type(),
  *  - and implements clone() by allocating a new BoxTyped<T> with a copy of T.
  *
- * This is the building block used by type-erased wrappers (e.g. Matrix) to hold
+ * This is the building block used by type-erased wrappers to hold
  * different concrete types behind a single Box* / std::unique_ptr<Box>.
  *
  * @tparam T The concrete type being stored.
