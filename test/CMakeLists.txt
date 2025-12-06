@@ -37,3 +37,16 @@ target_link_libraries(power_method_test
         GTest::gtest_main
 )
 add_test(NAME power_method_test COMMAND power_method_test)
+
+# === shifted_inverse_power_method_test ===
+add_executable(shifted_inverse_power_method_test
+    shifted_inverse_power_method_test.cpp
+)
+target_link_libraries(shifted_inverse_power_method_test
+    PRIVATE
+        PCSC_Eigenvalue_Solver_Project_Library
+        GTest::gtest
+        GTest::gtest_main
+)
+add_test(NAME shifted_inverse_power_method_test COMMAND shifted_inverse_power_method_test)
+

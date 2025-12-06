@@ -1,29 +1,67 @@
+/**
+ * @file shifted_solver_option.hpp
+ * @brief Defines ShiftedSolverOptions an extension of SolverOptions
+ *        that adds a spectral shift used by shifted inverse power
+ *        and shifted QR methods.
+ */
+
 #pragma once
 
+#include "solver_option.hpp"
 #include "../core/types.hpp"
 
 /**
- * @file shifted_option.hpp
- * @brief Defines options for shifted power and inverse power methods.
- */
-
-/**
- * @struct ShiftedOptions
- * @brief Options for solvers that use a spectral shift (e.g. shifted inverse power).
+ * @brief Options for solvers that use a spectral shift.
  *
- * @tparam Scalar  Numeric type (e.g. double, float, std::complex).
+ * This structure extends SolverOptions and gathers in a single
+ * object both the general solver settings and the spectral shift
+ * used by algorithms that operate on (A − σ I) or that iterate
+ * around a shifted value σ to approach an eigenvalue located
+ * near that point.
  *
- * This struct stores the value of the shift \f$\sigma\f$ used in:
- *   - Shifted power method:      \f$ A - \sigma I \f$
- *   - Shifted inverse iteration: \f$ (A - \sigma I)^{-1} \f$
+ * It is designed for shifted inverse power methods shifted QR
+ * iterations and any routine that benefits from a controllable
+ * shift in the spectrum.
+ *
+ * @tparam Scalar Numeric type of the shift. Must satisfy ScalarConcept.
  */
-template <ScalarConcept Scalar>
-struct ShiftedOptions {
-    /// Value of the shift \f$\sigma\f$.
+template <typename Scalar>
+struct ShiftedSolverOptions : public SolverOptions {
     Scalar shift;
 
-    /// Constructor (defaults to shift = 0).
-    ShiftedOptions(Scalar s = Scalar(0))
-        : shift(s)
+    /**
+     * @brief Default constructor.
+     *
+     * Initializes SolverOptions with its default values
+     * and sets the shift to zero.
+     */
+    ShiftedSolverOptions():
+        SolverOptions(),
+        shift(Scalar(0))
     {}
+
+    /**
+     * @brief Constructor with an explicit shift.
+     *
+     * Other parameters inherited from SolverOptions remain unchanged.
+     *
+     * @param s The shift.
+     */
+    ShiftedSolverOptions(Scalar s):
+        SolverOptions(),
+        shift(s)
+    {}
+
+    /**
+     * @brief Full constructor with shift maximum iterations and tolerance.
+     *
+     * @param s The shift.
+     * @param maxIter Maximum number of iterations.
+     * @param tol Convergence tolerance.
+     */
+    ShiftedSolverOptions(Scalar s, int maxIter, double tol) {
+        shift = s;
+        maxIterations = maxIter;
+        tolerance = tol;
+    }
 };
