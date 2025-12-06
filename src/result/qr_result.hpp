@@ -1,6 +1,6 @@
 #pragma once
 /**
- * @file QRResult.hpp
+ * @file qr_result.hpp
  * @brief Result type for QR eigenvalue algorithms.
  */
 

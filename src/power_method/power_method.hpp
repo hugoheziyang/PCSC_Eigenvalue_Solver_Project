@@ -26,8 +26,7 @@
  * and approximates the dominant eigenvalue by the Rayleigh quotient
  *   lambda_k = x_k^T A x_k
  *
- * Convergence is detected using a relative change criterion on lambda_k:
- *   |lambda_{k+1} - lambda_k| <= tolerance * (1 + |lambda_{k+1}|)
+ * Convergence is detected using a relative change criterion on lambda_k
  *
  * The returned EigenResult contains:
  *   - eigenvalue  : last Rayleigh quotient

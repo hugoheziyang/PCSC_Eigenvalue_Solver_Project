@@ -3,7 +3,7 @@
 #include "../core/types.hpp"
 
 /**
- * @file ShiftedOptions.hpp
+ * @file shifted_option.hpp
  * @brief Defines options for shifted power and inverse power methods.
  */
 

@@ -1,6 +1,6 @@
 #pragma once
 /**
- * @file EigenResult.hpp
+ * @file eigen_result.hpp
  * @brief Struct that stores the output of single-eigenpair solvers.
  */
 

@@ -1,7 +1,7 @@
 #pragma once
 
 /**
- * @file SolverOptions.hpp
+ * @file solver_option.hpp
  * @brief Defines generic solver parameters shared by multiple algorithms.
  */
 
