@@ -52,7 +52,7 @@ TEST(PowerMethodTest, DenseSimpleMatrix)
     auto result = powerMethod<double>(M, opts);
 
     EXPECT_TRUE(result.converged);
-    EXPECT_GT(result.iterations, 0);
+    EXPECT_GT(result.iterations, 0); // result.iterations > 0
 
     expectCloseRelative(result.eigenvalue, 2.0, 1e-5);
     expectEigenpair(A, result.eigenvector, result.eigenvalue, 1e-5);
@@ -77,7 +77,7 @@ TEST(PowerMethodTest, SparseMatrix)
     auto result = powerMethod<double>(M, opts);
 
     EXPECT_TRUE(result.converged);
-    EXPECT_GT(result.iterations, 0);
+    EXPECT_GT(result.iterations, 0); // result.iterations > 0
 
     // Dominant eigenvalue of that upper triangular matrix is 3
     expectCloseRelative(result.eigenvalue, 3.0, 1e-6);
