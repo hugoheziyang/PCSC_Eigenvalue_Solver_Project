@@ -39,9 +39,9 @@
  *
  * @param A_wrapped   Matrix wrapper holding the system matrix A.
  * @param opts        Shift options (contains the shift λ).
- * @param b           Right-hand side vector b (size n).
+ * @param b           Right-hand side vector b (size n), as Vector<Scalar>.
  *
- * @return Eigen::Matrix<Scalar, Dynamic, 1>  Solution vector x.
+ * @return Vector<Scalar>  Solution vector x.
  *
  * @throw std::runtime_error if:
  *   - A_wrapped is empty,
@@ -53,11 +53,11 @@
  *         Eigen dense or sparse matrix type.
  */
 template <ScalarConcept Scalar>
-Eigen::Matrix<Scalar, Eigen::Dynamic, 1>
+Vector<Scalar>
 solve_shifted(
     const Matrix& A_wrapped,
     const ShiftedOptions<Scalar>& opts,
-    const Eigen::Matrix<Scalar, Eigen::Dynamic, 1>& b
+    const Vector<Scalar>& b
 ) {
     // ---- Basic check common to both dense and sparse ----
     if (A_wrapped.scalar_type() != typeid(Scalar)) {
@@ -116,7 +116,7 @@ solve_shifted(
         throw std::runtime_error("solve_shifted: SparseLU factorization failed");
     }
 
-    Eigen::Matrix<Scalar, Eigen::Dynamic, 1> x = solver.solve(b);
+    Vector<Scalar> x = solver.solve(b);
     if (solver.info() != Eigen::Success) {
         throw std::runtime_error("solve_shifted: SparseLU solve failed");
     }

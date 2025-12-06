@@ -23,7 +23,7 @@ void qr_decompose_dense(
     Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>& R
 ) {
     using MatrixType = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
-    using VectorType = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
+    using VectorType = Vector<Scalar>;
     using Real = typename Eigen::NumTraits<Scalar>::Real;
 
     const Eigen::Index m = A.rows();

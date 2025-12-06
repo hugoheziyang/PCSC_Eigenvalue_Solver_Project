@@ -27,3 +27,15 @@ target_link_libraries(solve_shifted_test
 
 add_test(NAME solve_shifted_test COMMAND solve_shifted_test)
 
+add_executable(qr_algorithms_test
+    qr_algorithms_test.cpp
+)
+
+target_link_libraries(qr_algorithms_test
+    PRIVATE
+        PCSC_Eigenvalue_Solver_Project_Library
+        GTest::gtest
+        GTest::gtest_main
+)
+
+add_test(NAME qr_algorithms_test COMMAND qr_algorithms_test)

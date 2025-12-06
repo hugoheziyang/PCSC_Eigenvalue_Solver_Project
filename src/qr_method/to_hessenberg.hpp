@@ -33,7 +33,7 @@ to_hessenberg_dense(const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>&
         const Eigen::Index m = n - k - 1;  // length of column segment below diagonal
 
         // x = column k, rows k+1..n-1
-        Eigen::Matrix<Scalar, Eigen::Dynamic, 1> x = H.block(k + 1, k, m, 1);
+        Vector<Scalar> x = H.block(k + 1, k, m, 1);
 
         // Build Householder vector v to zero out x(1..end)
         Real norm_x = x.norm();                  // real norm
@@ -50,7 +50,7 @@ to_hessenberg_dense(const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>&
 
         Scalar alpha = -sign * Scalar(norm_x);   
 
-        Eigen::Matrix<Scalar, Eigen::Dynamic, 1> v = x;
+        Vector<Scalar> v = x;
         v(0) -= alpha;
 
         Real vnorm = v.norm();

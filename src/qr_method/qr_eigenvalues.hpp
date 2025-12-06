@@ -88,7 +88,7 @@ qr_eigenvalues_dense(
     }
 
     // 3. Extract diagonal as approximate eigenvalues
-    Eigen::Matrix<Scalar, Eigen::Dynamic, 1> eigvals(n);
+    Vector<Scalar> eigvals(n);
     for (Index i = 0; i < n; ++i) {
         eigvals(i) = H(i, i);
     }
