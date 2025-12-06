@@ -46,7 +46,6 @@ template <typename Mat>
     requires ScalarConcept<typename Mat::Scalar>
 EigenResult<typename Mat::Scalar> powerMethodImpl(const Mat& A, const SolverOptions& opts) {
     using Scalar = typename Mat::Scalar;
-    using Vector = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
 
     const auto n = A.rows();
     if (n != A.cols()) {
@@ -58,13 +57,13 @@ EigenResult<typename Mat::Scalar> powerMethodImpl(const Mat& A, const SolverOpti
 
     // The future output
     Scalar lambda      = Scalar(0);    
-    Vector x = Vector::Random(n); x.normalize();
+    Vector<Scalar> x = Vector<Scalar>::Random(n); x.normalize();
     int    usedIters   = 0;
     bool   converged   = false;
 
     bool   initialized = false;
     for (int k = 0; k < opts.maxIterations; ++k) {
-        Vector y = A * x;
+        Vector<Scalar> y = A * x;
 
         // If y becomes 0, we cannot continue
         const auto normY = y.norm();

@@ -18,6 +18,6 @@ struct SolverOptions {
     /// Maximum number of allowed iterations (default: 1000).
     int maxIterations = 1000;
 
-    /// Convergence tolerance for stopping criteria (default: 1e-10).
+    /// Convergence relative tolerance for stopping criteria (default: 1e-10).
     double tolerance = 1e-10;
 };

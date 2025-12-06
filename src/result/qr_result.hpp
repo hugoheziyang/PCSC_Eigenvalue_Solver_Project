@@ -22,7 +22,7 @@ template <ScalarConcept Scalar>
 struct QRResult {
 
     /// Computed eigenvalues (typically sorted, depending on implementation).
-    Eigen::Matrix<Scalar, Eigen::Dynamic, 1> eigenvalues;
+    Vector<Scalar> eigenvalues;
 
     /// Number of QR iterations taken.
     int iterations = 0;

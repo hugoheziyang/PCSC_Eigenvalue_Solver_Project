@@ -24,7 +24,7 @@ struct EigenResult {
     Scalar eigenvalue;
 
     /// Corresponding normalized eigenvector.
-    Eigen::Matrix<Scalar, Eigen::Dynamic, 1> eigenvector;
+    Vector<Scalar> eigenvector;
 
     /// Number of iterations performed.
     int iterations = 0;
@@ -38,7 +38,7 @@ struct EigenResult {
     /// Full constructor.
     EigenResult(
         const Scalar& lambda,
-        const Eigen::Matrix<Scalar, Eigen::Dynamic, 1>& vec,
+        const Vector<Scalar>& vec,
         int iters,
         bool conv
     ): 
