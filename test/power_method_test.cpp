@@ -1,3 +1,4 @@
+// This test file was mostly written by an AI tool.
 #include <gtest/gtest.h>
 #include <Eigen/Dense>
 #include <Eigen/Sparse>

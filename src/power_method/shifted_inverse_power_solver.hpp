@@ -11,49 +11,17 @@
 #include "../matrix/matrix.hpp"
 #include "../matrix/solve_shifted.hpp"
 #include "../core/types.hpp"
-#include "../option/solver_option.hpp"
-#include "../option/shifted_option.hpp"
+#include "../option/shifted_solver_option.hpp"
 #include "../result/eigen_result.hpp"
 #include "../core/tolerance.hpp"
 
-/**
- * @brief Core implementation of the shifted inverse power method.
- *
- * This templated helper operates on a concrete Eigen matrix type Mat
- * yet uses the Matrix wrapper for solving the shifted system
- * via solve_shifted.
- *
- * It repeatedly solves
- *
- *    (A - σ I) y_k = x_k
- *    x_{k+1}       = y_k / ||y_k||
- *
- * and approximates an eigenvalue of A near σ with the Rayleigh quotient
- *
- *    λ_k = x_k^T A x_k
- *
- * The loop stops when the relative change in λ_k satisfies the tolerance
- * in SolverOptions or when the maximum number of iterations is reached.
- *
- * @tparam Mat Concrete Eigen matrix type
- *             (Matrix::Dense<Scalar> or Matrix::Sparse<Scalar>).
- *
- * @param A_wrapped Matrix wrapper holding A.
- * @param A         Concrete Eigen view of A inside the wrapper.
- * @param opts      Generic solver options (maxIterations, tolerance).
- * @param shiftedOpts Shift options containing the shift σ.
- *
- * @return EigenResult<Scalar> with eigenvalue, eigenvector, iteration count, convergence flag.
- *
- * @throws std::runtime_error If the matrix is not square or has zero size.
- */
+
 template <typename Mat>
     requires ScalarConcept<typename Mat::Scalar>
 EigenResult<typename Mat::Scalar> shiftedInversePowerImpl(
     const Matrix& A_wrapped,
     const Mat& A,
-    const SolverOptions& opts,
-    const ShiftedOptions<typename Mat::Scalar>& shiftedOpts
+    const ShiftedSolverOptions<typename Mat::Scalar>& opts
 ) {
     using Scalar = typename Mat::Scalar;
 
@@ -66,6 +34,7 @@ EigenResult<typename Mat::Scalar> shiftedInversePowerImpl(
     }
 
     // Future output
+    Scalar shift = opts.shift;
     Scalar lambda = Scalar(0);
     Vector<Scalar> x = Vector<Scalar>::Random(n);
     x.normalize();
@@ -75,8 +44,8 @@ EigenResult<typename Mat::Scalar> shiftedInversePowerImpl(
     bool initialized = false;
 
     for (int k = 0; k < opts.maxIterations; ++k) {
-        // Solve (A - σ I) y = x with the generic shifted solver
-        Vector<Scalar> y = solve_shifted<Scalar>(A_wrapped, shiftedOpts, x);
+        // Solve (A - shift I) y = x
+        Vector<Scalar> y = solve_shifted<Scalar>(A_wrapped, shift, x);
 
         const auto normY = y.norm();
         if (normY == Scalar(0)) {
@@ -110,10 +79,7 @@ EigenResult<typename Mat::Scalar> shiftedInversePowerImpl(
  * @brief Shifted inverse power method interface for the Matrix wrapper.
  *
  * This function applies the shifted inverse power method to the matrix stored
- * inside a Matrix wrapper. It dispatches based on the internal storage:
- *
- *   - If M.isDense() is true it calls shiftedInversePowerImpl on a Dense<Scalar>.
- *   - Sinon il appelle shiftedInversePowerImpl sur un Sparse<Scalar>.
+ * inside a Matrix wrapper. It dispatches based on the internal storage.
  *
  * The template parameter Scalar must match the scalar type actually stored in M.
  * At runtime the function checks
@@ -125,34 +91,32 @@ EigenResult<typename Mat::Scalar> shiftedInversePowerImpl(
  *   Eigen::MatrixXd A = Eigen::MatrixXd::Random(100, 100);
  *   Matrix M(A);
  *
- *   SolverOptions opts;
+ *   ShiftedSolverOptions<double> opts;
+ *   opts.shift         = 1.0;   // σ = 1.0
  *   opts.maxIterations = 500;
  *   opts.tolerance     = 1e-8;
  *
- *   ShiftedOptions<double> shift(1.0); // σ = 1.0
- *
  *   EigenResult<double> result =
- *       shiftedInversePowerMethod<double>(M, shift, opts);
+ *       shiftedInversePowerMethod<double>(M, opts);
  * @endcode
  *
  * @tparam Scalar Numeric type stored in the matrix.
- * @param M        Matrix wrapper holding A.
- * @param shiftOpt Shift options containing the shift σ.
- * @param opts     Generic solver options (with default values).
+ * @param M    Matrix wrapper holding A.
+ * @param opts Full solver options including the shift σ.
  *
  * @return EigenResult<Scalar> containing the computed eigenpair.
  */
 template <ScalarConcept Scalar>
-EigenResult<Scalar> shiftedInversePowerMethod(const Matrix& M, const ShiftedOptions<Scalar>& shiftedOpt, const SolverOptions& opts = SolverOptions{}) {
+EigenResult<Scalar> shiftedInversePowerMethod(const Matrix& M, const ShiftedSolverOptions<Scalar>& opts = ShiftedSolverOptions<Scalar>{}) {
     if (M.scalar_type() != typeid(Scalar)) {
         throw std::runtime_error("shiftedInversePowerMethod: scalar type mismatch");
     }
 
     if (M.isDense()) {
         using Mat = Matrix::Dense<Scalar>;
-        return shiftedInversePowerImpl<Mat>(M, M.cast<Mat>(), opts, shiftedOpt);
+        return shiftedInversePowerImpl<Mat>(M, M.cast<Mat>(), opts);
     } else {
         using Mat = Matrix::Sparse<Scalar>;
-        return shiftedInversePowerImpl<Mat>(M, M.cast<Mat>(), opts, shiftedOpt);
+        return shiftedInversePowerImpl<Mat>(M, M.cast<Mat>(), opts);
     }
 }

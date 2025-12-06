@@ -39,14 +39,14 @@ TEST(SolveShiftedLinearSystem, DenseIdentity) {
     Matrix A_wrapped(A);
 
     // Shift λ = 2
-    ShiftedOptions<Scalar> opts(Scalar(2));
+    Scalar lambda = 2;
 
     // Right-hand side b
     Vec b(3);
     b << 1.0, -2.0, 3.0;
 
     // Solve (A - λ I) x = b  =>  (-I) x = b  => x = -b
-    Vec x = solve_shifted<Scalar>(A_wrapped, opts, b);
+    Vec x = solve_shifted<Scalar>(A_wrapped, lambda, b);
 
     // Expected solution is -b
     Vec x_expected = -b;
@@ -77,14 +77,13 @@ TEST(SolveShiftedLinearSystem, DenseGeneral2x2) {
 
     // Choose a shift λ
     Scalar lambda = 1.5;
-    ShiftedOptions<Scalar> opts(lambda);
 
     // Right-hand side
     Vec b(2);
     b << 2.0, -1.0;
 
     // Solve via our wrapper
-    Vec x = solve_shifted<Scalar>(A_wrapped, opts, b);
+    Vec x = solve_shifted<Scalar>(A_wrapped, lambda, b);
 
     // Form M = A - λ I and solve with Eigen directly
     DenseMat M = A - lambda * DenseMat::Identity(2, 2);
@@ -118,14 +117,14 @@ TEST(SolveShiftedLinearSystem, SparseIdentity) {
     Matrix A_wrapped(A);
 
     // Shift λ = 2
-    ShiftedOptions<Scalar> opts(Scalar(2));
+    Scalar lambda = 2;
 
     // Right-hand side b
     Vec b(3);
     b << 1.0, 0.5, -4.0;
 
     // Solve (A - λ I) x = b  => (-I)x = b  => x = -b
-    Vec x = solve_shifted<Scalar>(A_wrapped, opts, b);
+    Vec x = solve_shifted<Scalar>(A_wrapped, lambda, b);
 
     Vec x_expected = -b;
     for (int i = 0; i < x.size(); ++i) {

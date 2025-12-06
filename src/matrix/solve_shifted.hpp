@@ -5,7 +5,6 @@
  */
 
 #include "../matrix/matrix.hpp"  
-#include "../option/shifted_option.hpp" 
 #include "../core/types.hpp"   
 
 #include <Eigen/Dense>
@@ -21,14 +20,6 @@
  * This function works with both dense and sparse matrices stored inside the
  * Matrix wrapper:
  *
- *  - If A_wrapped.isDense() is true, it expects the underlying type to be
- *      Eigen::Matrix<Scalar, Dynamic, Dynamic>
- *    and uses Eigen::PartialPivLU for solving.
- *
- *  - If A_wrapped.isDense() is false, it expects the underlying type to be
- *      Eigen::SparseMatrix<Scalar>
- *    (the canonical sparse type used by Matrix) and uses Eigen::SparseLU.
- *
  * In both cases it forms
  *
  *      M = A - λ I
@@ -38,7 +29,7 @@
  * @tparam Scalar  Numeric type satisfying ScalarConcept.
  *
  * @param A_wrapped   Matrix wrapper holding the system matrix A.
- * @param opts        Shift options (contains the shift λ).
+ * @param shift       Scalar shift applied to the diagonal of A.
  * @param b           Right-hand side vector b (size n).
  *
  * @return Eigen::Matrix<Scalar, Dynamic, 1>  Solution vector x.
@@ -56,7 +47,7 @@ template <ScalarConcept Scalar>
 Eigen::Matrix<Scalar, Eigen::Dynamic, 1>
 solve_shifted(
     const Matrix& A_wrapped,
-    const ShiftedOptions<Scalar>& opts,
+    const Scalar shift,
     const Eigen::Matrix<Scalar, Eigen::Dynamic, 1>& b
 ) {
     // ---- Basic check common to both dense and sparse ----
@@ -80,7 +71,7 @@ solve_shifted(
 
         // Form M = A - λ I
         DenseMat M = A;
-        M.diagonal().array() -= opts.shift;
+        M.diagonal().array() -= shift;
 
         Eigen::PartialPivLU<DenseMat> lu(M);
         return lu.solve(b);
@@ -105,7 +96,7 @@ solve_shifted(
     // Subtract λ from each diagonal entry: M(i,i) -= λ.
     // coeffRef inserts the entry if it does not exist yet.
     for (Eigen::Index i = 0; i < M.rows(); ++i) {
-        M.coeffRef(i, i) -= opts.shift;
+        M.coeffRef(i, i) -= shift;
     }
 
     Eigen::SparseLU<SparseMat> solver;

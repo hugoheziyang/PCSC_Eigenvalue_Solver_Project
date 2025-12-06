@@ -1,3 +1,4 @@
+// This test file was mostly written by an AI tool.
 #include <gtest/gtest.h>
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
@@ -5,8 +6,7 @@
 
 #include "../src/matrix/matrix.hpp"
 #include "../src/power_method/shifted_inverse_power_solver.hpp"
-#include "../src/option/solver_option.hpp"
-#include "../src/option/shifted_option.hpp"
+#include "../src/option/shifted_solver_option.hpp"
 #include "../src/core/tolerance.hpp"
 
 using DenseMat  = Eigen::MatrixXd;
@@ -44,16 +44,15 @@ TEST(ShiftedInversePowerMethodTest, DenseShiftNearFirstEigenvalue)
 
     Matrix M(A);
 
-    SolverOptions opts;
+    ShiftedSolverOptions<double> opts;
+    opts.shift         = 1.9;      // shift close to 2
     opts.maxIterations = 1000;
     opts.tolerance     = 1e-10;
 
-    ShiftedOptions<double> shiftOpts(1.9); // shift close to 2
-
-    auto result = shiftedInversePowerMethod<double>(M, shiftOpts, opts);
+    auto result = shiftedInversePowerMethod<double>(M, opts);
 
     EXPECT_TRUE(result.converged);
-    EXPECT_GT(result.iterations, 0);
+    EXPECT_GT(result.iterations, 0); // Verifies that result.iterations >= 0
 
     expectCloseRelative(result.eigenvalue, 2.0, 1e-5);
     expectEigenpair(A, result.eigenvector, result.eigenvalue, 1e-5);
@@ -70,16 +69,15 @@ TEST(ShiftedInversePowerMethodTest, DenseShiftNearSecondEigenvalue)
 
     Matrix M(A);
 
-    SolverOptions opts;
+    ShiftedSolverOptions<double> opts;
+    opts.shift         = 4.9;      // shift close to 5
     opts.maxIterations = 1000;
     opts.tolerance     = 1e-10;
 
-    ShiftedOptions<double> shiftOpts(4.9); // shift close to 5
-
-    auto result = shiftedInversePowerMethod<double>(M, shiftOpts, opts);
+    auto result = shiftedInversePowerMethod<double>(M, opts);
 
     EXPECT_TRUE(result.converged);
-    EXPECT_GT(result.iterations, 0);
+    EXPECT_GT(result.iterations, 0); // Verifies that result.iterations >= 0
 
     expectCloseRelative(result.eigenvalue, 5.0, 1e-5);
     expectEigenpair(A, result.eigenvector, result.eigenvalue, 1e-5);
@@ -98,17 +96,15 @@ TEST(ShiftedInversePowerMethodTest, SparseMatrix)
     SparseMat A = A_dense.sparseView();
     Matrix M(A);
 
-    SolverOptions opts;
+    ShiftedSolverOptions<double> opts;
+    opts.shift         = 2.9;      // shift close to eigenvalue 3
     opts.maxIterations = 1000;
     opts.tolerance     = 1e-8;
 
-    // Choose a shift close to the middle eigenvalue 3
-    ShiftedOptions<double> shiftOpts(2.9);
-
-    auto result = shiftedInversePowerMethod<double>(M, shiftOpts, opts);
+    auto result = shiftedInversePowerMethod<double>(M, opts);
 
     EXPECT_TRUE(result.converged);
-    EXPECT_GT(result.iterations, 0);
+    EXPECT_GT(result.iterations, 0); // Verifies that result.iterations >= 0
 
     expectCloseRelative(result.eigenvalue, 3.0, 1e-5);
     expectEigenpair(A_dense, result.eigenvector, result.eigenvalue, 1e-5);
@@ -122,14 +118,13 @@ TEST(ShiftedInversePowerMethodTest, NonSquareMatrixThrows)
     DenseMat A(2, 3);
     Matrix M(A);
 
-    SolverOptions opts;
+    ShiftedSolverOptions<double> opts;
+    opts.shift         = 1.0;
     opts.maxIterations = 100;
     opts.tolerance     = 1e-6;
 
-    ShiftedOptions<double> shiftOpts(1.0);
-
     EXPECT_THROW(
-        shiftedInversePowerMethod<double>(M, shiftOpts, opts),
+        shiftedInversePowerMethod<double>(M, opts),
         std::runtime_error
     );
 }
@@ -142,14 +137,13 @@ TEST(ShiftedInversePowerMethodTest, ZeroSizeMatrixThrows)
     DenseMat A(0, 0);
     Matrix M(A);
 
-    SolverOptions opts;
+    ShiftedSolverOptions<double> opts;
+    opts.shift         = 0.0;
     opts.maxIterations = 100;
     opts.tolerance     = 1e-6;
 
-    ShiftedOptions<double> shiftOpts(0.0);
-
     EXPECT_THROW(
-        shiftedInversePowerMethod<double>(M, shiftOpts, opts),
+        shiftedInversePowerMethod<double>(M, opts),
         std::runtime_error
     );
 }
@@ -165,13 +159,12 @@ TEST(ShiftedInversePowerMethodTest, FewIterationsCanFailToConverge)
 
     Matrix M(A);
 
-    SolverOptions opts;
-    opts.maxIterations = 1;      // deliberately tiny
+    ShiftedSolverOptions<double> opts;
+    opts.shift         = 4.0;
+    opts.maxIterations = 1;        // deliberately tiny
     opts.tolerance     = 1e-12;
 
-    ShiftedOptions<double> shiftOpts(4.0);
-
-    auto result = shiftedInversePowerMethod<double>(M, shiftOpts, opts);
+    auto result = shiftedInversePowerMethod<double>(M, opts);
 
     // At least verify that the algorithm reports the expected iteration count
     EXPECT_EQ(result.iterations, opts.maxIterations);
