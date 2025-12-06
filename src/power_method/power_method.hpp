@@ -56,10 +56,10 @@ EigenResult<typename Mat::Scalar> powerMethodImpl(const Mat& A, const SolverOpti
     }
 
     // The future output
-    Scalar lambda      = Scalar(0);    
+    Scalar lambda = Scalar(0);    
     Vector<Scalar> x = Vector<Scalar>::Random(n); x.normalize();
-    int    usedIters   = 0;
-    bool   converged   = false;
+    int    usedIters = 0;
+    bool   converged = false;
 
     bool   initialized = false;
     for (int k = 0; k < opts.maxIterations; ++k) {
@@ -80,16 +80,16 @@ EigenResult<typename Mat::Scalar> powerMethodImpl(const Mat& A, const SolverOpti
         if (initialized) {
             if (is_close_relative(lambdaNew, lambda, opts.tolerance)) {
                 // The algorithm converged
-                lambda    = lambdaNew;
+                lambda = lambdaNew;
                 usedIters = k + 1;
                 converged = true;
                 break;
             }
         }
 
-        lambda      = lambdaNew;
+        lambda = lambdaNew;
         initialized = true;
-        usedIters   = k + 1;
+        usedIters = k + 1;
     }
 
     return EigenResult<Scalar>(lambda, x, usedIters, converged);
