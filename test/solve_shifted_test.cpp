@@ -3,8 +3,8 @@
 
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
+#include <complex>
 
-// Adjust these include paths to your actual project structure.
 #include "../src/matrix/matrix.hpp"
 #include "../src/core/types.hpp"
 #include "../src/matrix/solve_shifted.hpp"
@@ -135,4 +135,138 @@ TEST(SolveShiftedLinearSystem, SparseIdentity) {
     DenseMat M_dense = DenseMat::Identity(3, 3);
     M_dense.diagonal().array() -= Scalar(2);  // now M_dense = -I
     expect_linear_system_residual_small(M_dense, x, b);
+}
+
+// ---------------------------------------------------------------
+// Dense complex test: compare with Eigen direct solve.
+// ---------------------------------------------------------------
+TEST(SolveShiftedLinearSystem, DenseComplex2x2) {
+    using Scalar   = std::complex<double>;
+    using DenseMat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
+    using Vec      = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
+
+    // A is arbitrary 2x2 complex matrix
+    DenseMat A(2, 2);
+    A << Scalar(1.0, 1.0), Scalar(2.0, -1.0),
+         Scalar(0.5, 0.0), Scalar(3.0,  2.0);
+
+    Matrix A_wrapped(A);
+
+    Scalar lambda(0.7, -0.3);
+
+    Vec b(2);
+    b << Scalar(1.0, 0.0), Scalar(-2.0, 1.0);
+
+    // Solve via our wrapper
+    Vec x = solve_shifted<Scalar>(A_wrapped, lambda, b);
+
+    // Reference: form M = A - λ I and use Eigen directly
+    DenseMat M = A - lambda * DenseMat::Identity(2, 2);
+    Vec x_ref  = M.partialPivLu().solve(b);
+
+    for (int i = 0; i < x.size(); ++i) {
+        using std::abs;
+        EXPECT_NEAR(abs(x(i) - x_ref(i)), 0.0, 1e-10);
+    }
+
+    // Residual check: ||Mx - b|| small
+    auto r = M * x - b;
+    double res_norm = r.norm();
+    EXPECT_NEAR(res_norm, 0.0, 1e-10);
+}
+
+// ---------------------------------------------------------------
+// Error path: non-square dense A should throw.
+// ---------------------------------------------------------------
+TEST(SolveShiftedLinearSystem, ThrowsOnNonSquareDense) {
+    using Scalar   = double;
+    using DenseMat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
+    using Vec      = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
+
+    DenseMat A(2, 3);
+    A.setRandom();
+
+    Matrix A_wrapped(A);
+    Scalar lambda = 1.0;
+
+    Vec b(2);
+    b.setOnes();
+
+    EXPECT_THROW(
+        (void)solve_shifted<Scalar>(A_wrapped, lambda, b),
+        std::runtime_error
+    );
+}
+
+// ---------------------------------------------------------------
+// Error path: non-square sparse A should throw.
+// ---------------------------------------------------------------
+TEST(SolveShiftedLinearSystem, ThrowsOnNonSquareSparse) {
+    using Scalar   = double;
+    using SparseMat = Eigen::SparseMatrix<Scalar>;
+    using Vec       = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
+
+    SparseMat A(2, 3);
+    A.insert(0, 0) = 1.0;
+    A.insert(1, 2) = 2.0;
+
+    Matrix A_wrapped(A);
+    Scalar lambda = 0.5;
+
+    Vec b(2);
+    b << 1.0, -1.0;
+
+    EXPECT_THROW(
+        (void)solve_shifted<Scalar>(A_wrapped, lambda, b),
+        std::runtime_error
+    );
+}
+
+// ---------------------------------------------------------------
+// Error path: size mismatch between A and b (dense).
+// ---------------------------------------------------------------
+TEST(SolveShiftedLinearSystem, ThrowsOnSizeMismatchDense) {
+    using Scalar   = double;
+    using DenseMat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
+    using Vec      = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
+
+    DenseMat A = DenseMat::Identity(3, 3);
+    Matrix A_wrapped(A);
+    Scalar lambda = 1.0;
+
+    Vec b(2);      // wrong size
+    b.setOnes();
+
+    EXPECT_THROW(
+        (void)solve_shifted<Scalar>(A_wrapped, lambda, b),
+        std::runtime_error
+    );
+}
+
+// ---------------------------------------------------------------
+// Error path: scalar type mismatch (Matrix<double> vs solve_shifted<complex>).
+// ---------------------------------------------------------------
+TEST(SolveShiftedLinearSystem, ThrowsOnScalarTypeMismatch) {
+    using RealScalar    = double;
+    using ComplexScalar = std::complex<double>;
+
+    using DenseMatReal = Eigen::Matrix<RealScalar, Eigen::Dynamic, Eigen::Dynamic>;
+    using VecComplex   = Eigen::Matrix<ComplexScalar, Eigen::Dynamic, 1>;
+
+    DenseMatReal A(2, 2);
+    A << 1.0, 2.0,
+         3.0, 4.0;
+
+    Matrix A_wrapped(A);  // scalar_type() == typeid(double)
+
+    ComplexScalar lambda = ComplexScalar(1.0, 0.0);
+
+    VecComplex b(2);
+    b << ComplexScalar(1.0, 0.0),
+         ComplexScalar(0.0, 1.0);
+
+    EXPECT_THROW(
+        (void)solve_shifted<ComplexScalar>(A_wrapped, lambda, b),
+        std::runtime_error
+    );
 }

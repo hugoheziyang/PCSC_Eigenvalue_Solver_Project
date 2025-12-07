@@ -1,52 +1,20 @@
 find_package(GTest REQUIRED)
 
-# === matrix_wrapper_test ===
-add_executable(matrix_wrapper_test
-    matrix_wrapper_test.cpp
-)
-target_link_libraries(matrix_wrapper_test
-    PRIVATE
-        PCSC_Eigenvalue_Solver_Project_Library
-        GTest::gtest
-        GTest::gtest_main
-)
-add_test(NAME matrix_wrapper_test COMMAND matrix_wrapper_test)
+# Small helper to avoid repetition
+function(add_solver_test name)
+    add_executable(${name}
+        ${name}.cpp
+    )
+    target_link_libraries(${name}
+        PRIVATE
+            PCSC_Eigenvalue_Solver_Project_Library
+            GTest::gtest_main
+    )
+    add_test(NAME ${name} COMMAND ${name})
+endfunction()
 
-
-# === solve_shifted_test ===
-add_executable(solve_shifted_test
-    solve_shifted_test.cpp
-)
-target_link_libraries(solve_shifted_test
-    PRIVATE
-        PCSC_Eigenvalue_Solver_Project_Library
-        GTest::gtest
-        GTest::gtest_main
-)
-add_test(NAME solve_shifted_test COMMAND solve_shifted_test)
-
-
-# === power_method_test ===
-add_executable(power_method_test
-    power_method_test.cpp
-)
-target_link_libraries(power_method_test
-    PRIVATE
-        PCSC_Eigenvalue_Solver_Project_Library
-        GTest::gtest
-        GTest::gtest_main
-)
-add_test(NAME power_method_test COMMAND power_method_test)
-
-# === shifted_inverse_power_method_test ===
-add_executable(shifted_inverse_power_method_test
-    shifted_inverse_power_method_test.cpp
-)
-target_link_libraries(shifted_inverse_power_method_test
-    PRIVATE
-        PCSC_Eigenvalue_Solver_Project_Library
-        GTest::gtest
-        GTest::gtest_main
-)
-add_test(NAME shifted_inverse_power_method_test COMMAND shifted_inverse_power_method_test)
-
+add_solver_test(matrix_wrapper_test)
+add_solver_test(solve_shifted_test)
+add_solver_test(power_method_test)
+add_solver_test(shifted_inverse_power_method_test)
+add_solver_test(qr_algorithms_test)

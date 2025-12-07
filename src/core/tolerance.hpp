@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+
 /**
  * @brief Checks whether two floating-point values are close under a relative tolerance.
  *
