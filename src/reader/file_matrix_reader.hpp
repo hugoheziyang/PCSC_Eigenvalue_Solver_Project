@@ -87,10 +87,10 @@ Matrix readInsideSparseMatrix(std::ifstream& in, int rows, int cols) {
 
     int nnz = 0;
     if (!(in >> nnz)) {
-        throw std::runtime_error("Cannnot read nnz in the sparse matrix");
+        throw std::runtime_error("Cannot read number of non-zero entries in the sparse matrix");
     }
     if (nnz <= 0) {
-        throw std::runtime_error("nnz must be positive in a sparse matrix");
+        throw std::runtime_error("number of non-zero entries must be positive in a sparse matrix");
     }
 
     Matrix::Sparse<Scalar> sparse(rows, cols);
