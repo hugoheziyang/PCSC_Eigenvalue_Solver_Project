@@ -1,4 +1,8 @@
 #pragma once
+/**
+ * @file to_hessenberg.hpp
+ * @brief Implementation of the Hessenberg reduction for the Matrix wrapper.
+ */
 
 #include <Eigen/Dense>
 #include <stdexcept>

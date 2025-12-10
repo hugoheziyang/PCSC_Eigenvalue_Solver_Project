@@ -16,13 +16,71 @@ methodology, one can refer to the respective webpages [Power iteration](https://
 
 ---
 
+## 1. Compilation of program
+After cloning the repository, run the following command to populate the ```eigen``` directory:
+```bash
+git submodule update --init eigen
+```
+
+To compile the whole repository, execute the following in command line at the root of repository:
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
+
+To launch the ```main``` program, simply execute from the root of repository:
+```bash
+cd build
+./main
+```
+
+---
+
+## 2. Documentation and repository structure
+In depth documentation is done using ```doxygen``` software. To create the documentation, run the command in the root of repository:
+```bash
+doxygen Doxyfile
+```
+To view the documentation, open ```docs/html/index.html``` in your favourite browser. For example:
+```bash
+google-chrome docs/html/index.html
+```
+
+After compiling the repository and generating the documentation, the repository structure at the first level should look like (comments preceded by //):
+.
+├── build                   // Directory of executables
+├── CMakeLists.txt          
+├── data                    // Directory of matrix inputs in ```.txt``` format
+├── docs                    // Directory of documentation in ```html``` and ```latex``` format
+├── Doxyfile                // Documentation executable
+├── eigen                   // Directory of eigen library git submodule
+├── main.cpp
+├── README.md
+├── src                     // Directory of eigensolver source code of project
+└── test                    // Directory of tests for functions in ```src/```
+
+
+---
+
+## 3. Usage of functions
+
+
+---
+
+## 4. Use of AI
+AI chatbots were used to write most of ```src/core/types.hpp``` and all the tests in the ```test/``` directory. Minor editing was done to these files after AI generation. AI chatbots were also used to tidy up and clean ```doxygen``` comments for better presentation in documentation.
+
+---
+
 ## 5. Validating tests
 
 All tests are written with GoogleTest and are contained in the ```test/``` directory. They can be built and run with:
 
 ```bash
 cd build
-cmake --build . --target matrix_wrapper_test solve_shifted_test qr_algorithms_test
+cmake --build . --target matrix_wrapper_test solve_shifted_test power_method_test shifted_inverse_power_method_test qr_algorithms_test 
 ctest
 ```
 
