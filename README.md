@@ -99,14 +99,14 @@ is given by replacing ```<dense_matrix_representation>``` by the following:
 0 2 3
 0 0 5
 ```
-An example of representing a complex dense matrix: \
-$$
+An example of representing a complex dense matrix: 
+```math
 \begin{pmatrix}
     1+3i & 3+5i & 1+4i \\
     0 & 2+4i & 3+2i \\
     0 & 0 & 5-i 
 \end{pmatrix}
-$$
+```
 is given by replacing ```<dense_matrix_representation>``` by the following:
 ```
 1 3   3 5   1 4 
@@ -121,14 +121,14 @@ sparse
 <number_of_nonzero_values>
 <sparse_matrix_representation>
 ```
-An example of representing a real sparse matrix: \
-$$
+An example of representing a real sparse matrix: 
+```math
 \begin{pmatrix}
     1 & 3 & 1 \\
     0 & 2 & 3 \\
     0 & 0 & 5 
 \end{pmatrix}
-$$
+```
 is given by replacing ```<number_of_nonzero_values>``` by 6 and ```<sparse_matrix_representation>``` by the following:
 ```
 0 0 1
@@ -142,14 +142,14 @@ where for each row, the syntax is:
 ```
 <row_index> <column_index> <value>
 ```
-An example of representing a complex sparse matrix: \
-$$
+An example of representing a complex sparse matrix: 
+```math
 \begin{pmatrix}
     1+3i & 3+5i & 1+4i \\
     0 & 2+4i & 3+2i \\
     0 & 0 & 5-i 
 \end{pmatrix}
-$$
+```
 is given by replacing ```<number_of_nonzero_values>``` by 6 and ```<sparse_matrix_representation>``` by the following:
 ```
 0 0 1 3
