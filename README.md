@@ -85,14 +85,14 @@ dense
 <number_of_rows> <number_of_columns>
 <dense_matrix_representation>
 ```
-An example of representing a real dense matrix: \
-$$
+An example of representing a real dense matrix: 
+```math
 \begin{pmatrix}
     1 & 3 & 1 \\
     0 & 2 & 3 \\
     0 & 0 & 5 
 \end{pmatrix}
-$$
+```
 is given by replacing ```<dense_matrix_representation>``` by the following:
 ```
 1 3 1
