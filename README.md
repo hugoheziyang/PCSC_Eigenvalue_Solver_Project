@@ -49,18 +49,18 @@ google-chrome docs/html/index.html
 ```
 
 After compiling the repository and generating the documentation, the repository structure at the first level should look like (comments preceded by ```//```):
-```bash
+```
 .
 ├── build                   // Directory of executables
 ├── CMakeLists.txt          
-├── data                    // Directory of matrix inputs in ```.txt``` format
-├── docs                    // Directory of documentation in ```html``` and ```latex``` format
+├── data                    // Directory of matrix inputs in .txt format
+├── docs                    // Directory of documentation in html and latex format
 ├── Doxyfile                // Documentation executable
 ├── eigen                   // Directory of eigen library git submodule
 ├── main.cpp
 ├── README.md
 ├── src                     // Directory of eigensolver source code of project
-└── test                    // Directory of tests for functions in ```src/```
+└── test                    // Directory of tests for functions in src/
 ```
 
 ---
