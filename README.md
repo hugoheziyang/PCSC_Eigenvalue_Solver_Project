@@ -75,7 +75,7 @@ To use the eigensolver, the user can choose to create an ```EigSol::Matrix``` ob
 - Input a ```.txt``` file with specific layout.
 - Create an ```eigen``` matrix object and wrapping it with ```EigSol::Matrix```.
 - Create a ```std::vector``` matrix object and wrapping it with ```EigSol::Matrix```.
-The three ways are described in the following subsections.
+The three ways are described in the following subsections, as well as the application of eigensolver functions onto the ```EigSol::Matrix``` objects.
 
 
 ### 3.1 Input a ```.txt``` file with specific layout.
@@ -85,26 +85,165 @@ dense
 <number_of_rows> <number_of_columns>
 <dense_matrix_representation>
 ```
-For the ```<dense_matrix_representation>```, an example of representing a real dense matrix is:
-$\pi$
-
+An example of representing a real dense matrix:
+$$
+\begin{pmatrix}
+    1 & 3 & 1 \\
+    0 & 2 & 3 \\
+    0 & 0 & 5 
+\end{pmatrix}
+$$
+is given by replacing ```<dense_matrix_representation>``` by the following:
 ```
-1 3   3 5   1 4.0 
-0 0   2 4   3 2.0
+1 3 1
+0 2 3
+0 0 5
+```
+An example of representing a complex dense matrix:
+$$
+\begin{pmatrix}
+    1+3i & 3+5i & 1+4i \\
+    0 & 2+4i & 3+2i \\
+    0 & 0 & 5-i 
+\end{pmatrix}
+$$
+is given by replacing ```<dense_matrix_representation>``` by the following:
+```
+1 3   3 5   1 4 
+0 0   2 4   3 2
 0 0   0 0   5 -1
 ```
 
-```cpp
-const std::string fileA   = "../data/A.txt";
+For sparse matrices, the ```.txt``` file should be written in the following format (replace <.> with desired numbers):
+```
+sparse
+<number_of_rows> <number_of_columns>
+<number_of_nonzero_values>
+<sparse_matrix_representation>
+```
+An example of representing a real sparse matrix:
+$$
+\begin{pmatrix}
+    1 & 3 & 1 \\
+    0 & 2 & 3 \\
+    0 & 0 & 5 
+\end{pmatrix}
+$$
+is given by replacing ```<number_of_nonzero_values>``` by 6 and ```<sparse_matrix_representation>``` by the following:
+```
+0 0 1
+0 1 3
+0 2 1 
+1 1 2
+1 2 3
+2 2 5
+```
+where for each row, the syntax is:
+```
+<row_index> <column_index> <value>
+```
+An example of representing a complex sparse matrix:
+$$
+\begin{pmatrix}
+    1+3i & 3+5i & 1+4i \\
+    0 & 2+4i & 3+2i \\
+    0 & 0 & 5-i 
+\end{pmatrix}
+$$
+is given by replacing ```<number_of_nonzero_values>``` by 6 and ```<sparse_matrix_representation>``` by the following:
+```
+0 0 1 3
+0 1 3 5
+0 2 1 4
+1 1 2 4
+1 2 3 2
+2 2 5 -1
+```
+where for each row, the syntax is:
+```
+<row_index> <column_index> <real_part> <imaginary_part>
 ```
 
+To create an ```EigSol::Matrix A``` containing a ```double``` typed matrix (either dense or sparse) from ```A.txt```, the user can implement the following C++ code:
+
+```cpp
+#include "src/reader/file_matrix_reader.hpp"
+#include "src/matrix/matrix.hpp"
+
+const std::string fileA = "A.txt";
+EigSol::Matrix A = EigSol::readMatrixFromFile<double>(fileA)
+```
+
+### 3.2 Create an ```eigen``` or ```std::vector``` matrix object and wrapping with ```EigSol::Matrix```
+The user can directly wrap a ```eigen``` or ```std::vector``` matrix object by using the constructor of ```EigSol::Matrix```. For example:
+
+```cpp
+#include "src/matrix/matrix.hpp"
+#include <Eigen/Dense>
+#include <vector>
+
+Eigen::Matrix<double, 2, 2> A;
+A << 1.0, 2.0, 
+     3.0, 4.0;
+EigSol::Matrix M1(A);   // M1 is constructed from A
+
+std::vector<double> B = {1.0, 2.0, 3.0, 4.0};     // Input 2×2 matrix
+EigSol::Matrix M2(B, 2, 2);     // M2 is constructed from B
+
+// Shape and values of M1 and M2 are the same
+```
+
+
+### 3.3 Eigensolver functions
+We show an example usage of power method, shifted inverse power method, and QR method. Assume a ```double``` typed matrix wrapped in ```EigSol::Matrix A``` has already been created. 
+
+```cpp
+#include "src/option/solver_option.hpp"
+#include "src/option/shifted_solver_option.hpp"
+#include "src/power_method/power_method.hpp"
+#include "src/power_method/shifted_inverse_power_solver.hpp"
+#include "src/qr_method/qr_eigenvalues.hpp"
+
+// --- Power method ---
+EigSol::SolverOptions opts;
+opts.maxIterations = 1000;
+opts.tolerance = 1e-10;
+
+auto powerResult = EigSol::powerMethod<double>(A, opts)    
+
+// --- Shifted inverse power method ---
+EigSol::ShiftedSolverOptions<double> shiftedOpts;
+shiftedOpts.shift = 3.1;
+shiftedOpts.maxIterations = 1000;
+shiftedOpts.tolerance = 1e-12;
+
+auto shiftInvPowResult = EigSol::shiftedInversePowerMethod<double>(A, shiftedOpts);   
+
+// --- QR method ---
+EigSol::SolverOptions qrOpts;
+qrOpts.maxIterations = 1000;
+qrOpts.tolerance = 1e-10;
+
+auto qrResult = EigSol::qr_eigenvalues<double>(A, qrOpts);
+```
+
+In the code implementation above, ```powerResult``` and ```shiftInvPowResult``` both have attributes:
+- eigenvalue (single eigenvalue)
+- eigenvector (single eigenvector)
+- iterations (number of iterations used)
+- converged (true or false)
+
+The QR method result ```qrResult``` has attributes:
+- eigenvalue (list of all eigenvalues)
+- iterations (number of iterations used)
+- converged (true or false)
 
 
 ---
 
 ## 4. Use of AI
 
-AI chatbots were used to write most of ```src/core/types.hpp``` and all the tests in the ```test/``` directory. Minor editing was done to these files after AI generation. AI chatbots were also used to tidy up and clean ```doxygen``` comments for better presentation in documentation.
+AI chatbots were used to write most of ```src/core/types.hpp``` and all the tests in the ```test/``` directory. However, editing was done to these files after AI generation. AI chatbots were also used to tidy up and clean ```doxygen``` comments for better presentation in documentation.
 
 ---
 
