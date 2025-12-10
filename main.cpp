@@ -40,7 +40,7 @@ void printVector(const VectorType& v, const std::string& name) {
 }
 
 int main() {
-    using Scalar = double;
+    using Scalar = std::complex<double>;
 
     const std::string fileA   = "../data/A.txt";
     const std::string fileB = "../data/B.txt";

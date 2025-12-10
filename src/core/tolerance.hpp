@@ -5,6 +5,7 @@
  */
 
 #include <cmath>
+#include "types.hpp"
 
 /**
  * @brief Checks whether two floating-point values are close under a relative tolerance.
@@ -22,7 +23,8 @@
  * @param tol Non-negative tolerance factor.
  * @return true if the values are considered close under this criterion.
  */
-inline bool is_close_relative(double a, double b, double tol) {
+template <ScalarConcept Scalar>
+inline bool is_close_relative(Scalar a, Scalar b, double tol) {
     const double diff  = std::abs(a - b);
     const double scale = 1.0 + std::abs(a);
     return diff <= tol * scale;

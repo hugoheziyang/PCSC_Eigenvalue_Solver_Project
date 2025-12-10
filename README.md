@@ -64,7 +64,9 @@ After compiling the repository and generating the documentation, the repository 
 
 ---
 
-## 3. Usage of functions
+## 3. Program logic and typical execution
+To use the eigensolver, the user must 
+The eigensolver stores ```eigen``` matrices in ```EigSol::Matrix``` wrapper objects. 
 
 
 ---
