@@ -64,12 +64,13 @@ EigenResult<typename Mat::Scalar> powerMethodImpl(const Mat& A, const SolverOpti
     bool   converged = false;
 
     bool   initialized = false;
+    using Real = typename Eigen::NumTraits<Scalar>::Real;
     for (int k = 0; k < opts.maxIterations; ++k) {
         Vector<Scalar> y = A * x;
 
         // If y becomes 0, we cannot continue
-        const auto normY = y.norm();
-        if (normY == Scalar(0)) {
+        const Real normY = y.norm();
+        if (normY == Real(0)) {
             usedIters = k + 1;
             break;
         }

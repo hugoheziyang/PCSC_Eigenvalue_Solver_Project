@@ -45,12 +45,13 @@ EigenResult<typename Mat::Scalar> shiftedInversePowerImpl(
     bool converged  = false;
     bool initialized = false;
 
+    using Real = typename Eigen::NumTraits<Scalar>::Real;  
     for (int k = 0; k < opts.maxIterations; ++k) {
         // Solve (A - shift I) y = x
         Vector<Scalar> y = solve_shifted<Scalar>(A_wrapped, shift, x);
 
-        const auto normY = y.norm();
-        if (normY == Scalar(0)) {
+        const Real normY = y.norm();
+        if (normY == Real(0)) {
             usedIters = k + 1;
             break;
         }

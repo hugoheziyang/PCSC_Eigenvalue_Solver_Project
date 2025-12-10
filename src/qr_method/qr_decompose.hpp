@@ -1,4 +1,8 @@
 #pragma once
+/**
+ * @file qr_decompose.hpp
+ * @brief Implementation of the QR decomposition for the Matrix wrapper.
+ */
 
 #include <Eigen/Dense>
 #include <stdexcept>

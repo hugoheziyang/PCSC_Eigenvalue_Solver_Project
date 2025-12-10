@@ -1,4 +1,8 @@
 #pragma once
+/**
+ * @file tolerance.hpp
+ * @brief Implementation of relative tolerance checks.
+ */
 
 #include <cmath>
 

@@ -1,5 +1,8 @@
-// This file was mostly written by an AI tool.
 #pragma once
+/**
+ * @file types.hpp
+ * @brief Definition of ScalarConcept and Vector alias.
+ */
 
 #include <Eigen/Dense>
 #include <concepts>

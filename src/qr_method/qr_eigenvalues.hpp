@@ -1,4 +1,8 @@
 #pragma once
+/**
+ * @file qr_eigenvalues.hpp
+ * @brief Implementation of the QR eigenvalue iteration for the Matrix wrapper.
+ */
 
 #include <Eigen/Dense>
 #include <algorithm>   
