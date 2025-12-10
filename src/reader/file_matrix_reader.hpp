@@ -14,6 +14,8 @@
 #include <string>
 #include <stdexcept>
 
+namespace EigSol {
+
 
 /**
  * @brief Reads a dense matrix from an already opened input stream.
@@ -196,3 +198,5 @@ Matrix readMatrixFromFile(const std::string& filename) {
 
     throw std::runtime_error("Reached end of the function unexpectedly");
 }
+
+} // end namespace

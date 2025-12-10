@@ -16,6 +16,8 @@
 #include "to_hessenberg.hpp"       
 #include "qr_decompose.hpp"        
 
+namespace EigSol {
+
 /**
  * @brief QR eigenvalue iteration on a dense matrix using Householder-QR.
  *
@@ -143,3 +145,5 @@ qr_eigenvalues(const Matrix& A_wrapped, const SolverOptions& opts)
     // 4. Delegate to the dense version
     return qr_eigenvalues_dense<Scalar>(A, opts);
 }
+
+} // end namespace

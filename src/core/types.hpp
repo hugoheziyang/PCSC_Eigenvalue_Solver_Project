@@ -9,6 +9,8 @@
 #include <type_traits>
 #include <complex>
 
+namespace EigSol{
+
 /// Helper trait: false by default
 template <typename T>
 struct is_complex_of_floating : std::false_type {};
@@ -30,3 +32,5 @@ concept ScalarConcept =
 /// Convenience alias for column vectors with valid scalar type.
 template <ScalarConcept Scalar>
 using Vector = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
+
+} // end namespace

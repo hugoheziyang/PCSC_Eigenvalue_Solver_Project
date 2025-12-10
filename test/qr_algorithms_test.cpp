@@ -13,8 +13,8 @@
 
 // Small helper: compare two real matrices A,B with max |A-B| < tol
 template <typename Scalar>
-void expect_matrices_near(const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>& A,
-                          const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>& B,
+void expect_matrices_near(const EigSol::Matrix::Dense<Scalar>& A,
+                          const EigSol::Matrix::Dense<Scalar>& B,
                           double tol = 1e-10)
 {
     ASSERT_EQ(A.rows(), B.rows());
@@ -32,14 +32,14 @@ void expect_matrices_near(const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dyn
 TEST(ToHessenbergDenseTest, Real3x3ProducesUpperHessenberg)
 {
     using Scalar = double;
-    using Mat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
+    using Mat = EigSol::Matrix::Dense<double>;
 
     Mat A(3, 3);
     A << 4.0, 1.0, -2.0,
          1.0, 3.0,  0.0,
          2.0, 1.0,  1.0;
 
-    Mat H = to_hessenberg_dense<Scalar>(A);
+    Mat H = EigSol::to_hessenberg_dense<Scalar>(A);
 
     // Check: Hessenberg -> zeros below first subdiagonal
     for (Eigen::Index i = 2; i < 3; ++i) {       // for 3x3, only i=2
@@ -49,22 +49,22 @@ TEST(ToHessenbergDenseTest, Real3x3ProducesUpperHessenberg)
     }
 
     // Wrap A in Matrix and check wrapper-based version matches dense version
-    Matrix A_wrapped(A);
-    Mat H2 = to_hessenberg<Scalar>(A_wrapped);
+    EigSol::Matrix A_wrapped(A);
+    Mat H2 = EigSol::to_hessenberg<Scalar>(A_wrapped);
     expect_matrices_near(H, H2);
 }
 
 TEST(ToHessenbergDenseTest, Complex3x3ProducesUpperHessenberg)
 {
     using Scalar = std::complex<double>;
-    using Mat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
+    using Mat = EigSol::Matrix::Dense<Scalar>;
 
     Mat A(3, 3);
     A << Scalar(4.0, 1.0), Scalar(1.0, 0.0),  Scalar(-2.0, 2.0),
          Scalar(1.0, 0.0), Scalar(3.0, -1.0), Scalar(0.0, 1.0),
          Scalar(2.0, 0.0), Scalar(1.0, 2.0),  Scalar(1.0, 0.0);
 
-    Mat H = to_hessenberg_dense<Scalar>(A);
+    Mat H = EigSol::to_hessenberg_dense<Scalar>(A);
 
     // Check Hessenberg structure
     for (Eigen::Index i = 2; i < 3; ++i) {
@@ -75,32 +75,32 @@ TEST(ToHessenbergDenseTest, Complex3x3ProducesUpperHessenberg)
     }
 
     // Wrapper-based version
-    Matrix A_wrapped(A);
-    Mat H2 = to_hessenberg<Scalar>(A_wrapped);
+    EigSol::Matrix A_wrapped(A);
+    Mat H2 = EigSol::to_hessenberg<Scalar>(A_wrapped);
     expect_matrices_near(H, H2);
 }
 
 TEST(ToHessenbergDenseTest, ThrowsOnNonSquare)
 {
     using Scalar = double;
-    using Mat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
+    using Mat = EigSol::Matrix::Dense<Scalar>;
 
     Mat A(2, 3);
     A.setRandom();
 
-    EXPECT_THROW(to_hessenberg_dense<Scalar>(A), std::runtime_error);
+    EXPECT_THROW(EigSol::to_hessenberg_dense<Scalar>(A), std::runtime_error);
 }
 
 TEST(ToHessenbergDenseTest, EigenvaluesPreservedReal) {
     using Scalar = double;
-    using Mat    = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
+    using Mat    = EigSol::Matrix::Dense<Scalar>;
 
     Mat A(3, 3);
     A << 4.0, 1.0, -2.0,
          1.0, 3.0,  0.0,
          2.0, 1.0,  1.0;
 
-    Mat H = to_hessenberg_dense<Scalar>(A);
+    Mat H = EigSol::to_hessenberg_dense<Scalar>(A);
 
     // Compute eigenvalues of A and H using EigenSolver
     Eigen::EigenSolver<Mat> eigA(A);
@@ -140,7 +140,7 @@ TEST(ToHessenbergDenseTest, EigenvaluesPreservedReal) {
 TEST(QRDecomposeDenseTest, RealRectangular3x2)
 {
     using Scalar = double;
-    using Mat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
+    using Mat = EigSol::Matrix::Dense<Scalar>;
 
     Mat A(3, 2);
     A << 1.0, 2.0,
@@ -148,7 +148,7 @@ TEST(QRDecomposeDenseTest, RealRectangular3x2)
          5.0, 6.0;
 
     Mat Q, R;
-    qr_decompose_dense<Scalar>(A, Q, R);
+    EigSol::qr_decompose_dense<Scalar>(A, Q, R);
 
     // Check dimensions
     EXPECT_EQ(Q.rows(), 3);
@@ -173,8 +173,8 @@ TEST(QRDecomposeDenseTest, RealRectangular3x2)
     expect_matrices_near(I, QtQ, 1e-10);
 
     // Wrapper version
-    Matrix A_wrapped(A);
-    auto [Q2, R2] = qr_decompose<Scalar>(A_wrapped);
+    EigSol::Matrix A_wrapped(A);
+    auto [Q2, R2] = EigSol::qr_decompose<Scalar>(A_wrapped);
     expect_matrices_near(Q, Q2, 1e-10);
     expect_matrices_near(R, R2, 1e-10);
 }
@@ -182,14 +182,14 @@ TEST(QRDecomposeDenseTest, RealRectangular3x2)
 TEST(QRDecomposeDenseTest, ComplexSquare2x2)
 {
     using Scalar = std::complex<double>;
-    using Mat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
+    using Mat = EigSol::Matrix::Dense<Scalar>;
 
     Mat A(2, 2);
     A << Scalar(1.0, 1.0), Scalar(2.0, -1.0),
          Scalar(0.5, 0.0), Scalar(3.0, 2.0);
 
     Mat Q, R;
-    qr_decompose_dense<Scalar>(A, Q, R);
+    EigSol::qr_decompose_dense<Scalar>(A, Q, R);
 
     // Dimensions
     EXPECT_EQ(Q.rows(), 2);
@@ -216,8 +216,8 @@ TEST(QRDecomposeDenseTest, ComplexSquare2x2)
     expect_matrices_near(I, QtQ, 1e-10);
 
     // Wrapper version
-    Matrix A_wrapped(A);
-    auto [Q2, R2] = qr_decompose<Scalar>(A_wrapped);
+    EigSol::Matrix A_wrapped(A);
+    auto [Q2, R2] = EigSol::qr_decompose<Scalar>(A_wrapped);
     expect_matrices_near(Q, Q2, 1e-10);
     expect_matrices_near(R, R2, 1e-10);
 }
@@ -225,11 +225,11 @@ TEST(QRDecomposeDenseTest, ComplexSquare2x2)
 TEST(QRDecomposeDenseTest, ThrowsOnEmpty)
 {
     using Scalar = double;
-    using Mat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
+    using Mat = EigSol::Matrix::Dense<Scalar>;
 
     Mat A(0, 0);
     Mat Q, R;
-    EXPECT_THROW(qr_decompose_dense<Scalar>(A, Q, R), std::runtime_error);
+    EXPECT_THROW(EigSol::qr_decompose_dense<Scalar>(A, Q, R), std::runtime_error);
 }
 
 // --- 3. qr_eigenvalues_dense / qr_eigenvalues -------------------------------
@@ -237,18 +237,18 @@ TEST(QRDecomposeDenseTest, ThrowsOnEmpty)
 TEST(QREigenvaluesDenseTest, Real2x2KnownEigenvalues)
 {
     using Scalar = double;
-    using Mat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
+    using Mat = EigSol::Matrix::Dense<Scalar>;
 
     // Symmetric matrix with eigenvalues 3 and 1
     Mat A(2, 2);
     A << 2.0, 1.0,
          1.0, 2.0;
 
-    SolverOptions opts;
+    EigSol::SolverOptions opts;
     opts.maxIterations = 1000;
     opts.tolerance     = 1e-12;
 
-    auto result = qr_eigenvalues_dense<Scalar>(A, opts);
+    auto result = EigSol::qr_eigenvalues_dense<Scalar>(A, opts);
 
     EXPECT_TRUE(result.converged);
     ASSERT_EQ(result.eigenvalues.size(), 2);
@@ -266,8 +266,8 @@ TEST(QREigenvaluesDenseTest, Real2x2KnownEigenvalues)
     EXPECT_NEAR(min_ev, 1.0, 1e-8);
 
     // Wrapper version
-    Matrix A_wrapped(A);
-    auto result2 = qr_eigenvalues<Scalar>(A_wrapped, opts);
+    EigSol::Matrix A_wrapped(A);
+    auto result2 = EigSol::qr_eigenvalues<Scalar>(A_wrapped, opts);
 
     EXPECT_EQ(result2.eigenvalues.size(), 2);
 
@@ -287,18 +287,18 @@ TEST(QREigenvaluesDenseTest, Real2x2KnownEigenvalues)
 TEST(QREigenvaluesDenseTest, Complex2x2SameEigenvalues)
 {
     using Scalar = std::complex<double>;
-    using Mat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
+    using Mat = EigSol::Matrix::Dense<Scalar>;
 
     // Same real matrix, but stored as complex<double>
     Mat A(2, 2);
     A << Scalar(2.0, 0.0), Scalar(1.0, 0.0),
          Scalar(1.0, 0.0), Scalar(2.0, 0.0);
 
-    SolverOptions opts;
+    EigSol::SolverOptions opts;
     opts.maxIterations = 1000;
     opts.tolerance     = 1e-12;
 
-    auto result = qr_eigenvalues_dense<Scalar>(A, opts);
+    auto result = EigSol::qr_eigenvalues_dense<Scalar>(A, opts);
 
     EXPECT_TRUE(result.converged);
     ASSERT_EQ(result.eigenvalues.size(), 2);
@@ -317,8 +317,8 @@ TEST(QREigenvaluesDenseTest, Complex2x2SameEigenvalues)
     EXPECT_NEAR(min_ev, 1.0, 1e-8);
 
     // Wrapper version
-    Matrix A_wrapped(A);
-    auto result2 = qr_eigenvalues<Scalar>(A_wrapped, opts);
+    EigSol::Matrix A_wrapped(A);
+    auto result2 = EigSol::qr_eigenvalues<Scalar>(A_wrapped, opts);
 
     EXPECT_GE(result.iterations, 1);
     EXPECT_LE(result.iterations, opts.maxIterations);
@@ -335,12 +335,12 @@ TEST(QREigenvaluesDenseTest, Complex2x2SameEigenvalues)
 TEST(QREigenvaluesDenseTest, ThrowsOnNonSquare)
 {
     using Scalar = double;
-    using Mat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
+    using Mat = EigSol::Matrix::Dense<Scalar>;
 
     Mat A(2, 3);
     A.setRandom();
 
-    SolverOptions opts;
+    EigSol::SolverOptions opts;
     opts.maxIterations = 10;
     opts.tolerance     = 1e-6;
 

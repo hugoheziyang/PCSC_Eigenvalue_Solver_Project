@@ -1,5 +1,7 @@
 #pragma once
 
+namespace EigSol {
+
 /**
  * @file solver_option.hpp
  * @brief Defines generic solver parameters shared by multiple algorithms.
@@ -16,3 +18,5 @@ struct SolverOptions {
     /// Convergence relative tolerance for stopping criteria.
     double tolerance = 1e-10;
 };
+
+} // end namespace

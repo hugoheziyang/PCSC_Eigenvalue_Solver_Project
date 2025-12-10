@@ -14,6 +14,8 @@
 #include "../result/eigen_result.hpp"
 #include "../core/tolerance.hpp"
 
+namespace EigSol {
+
 /**
  * @brief Internal implementation of the power method on a concrete Eigen matrix.
  *
@@ -144,3 +146,5 @@ EigenResult<Scalar> powerMethod(const Matrix& M, const SolverOptions& opts = Sol
         return powerMethodImpl<Mat>(M.cast<Mat>(), opts);
     }
 }
+
+} // end namespace

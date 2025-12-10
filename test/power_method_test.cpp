@@ -9,13 +9,12 @@
 #include "../src/core/tolerance.hpp"
 
 
-using DenseMat  = Eigen::MatrixXd;
-using SparseMat = Eigen::SparseMatrix<double>;
+using DenseMat  = EigSol::Matrix::Dense<double>;
+using SparseMat = EigSol::Matrix::Sparse<double>;
 
 // Small helper for comparing doubles with a relative tolerance
-inline void expectCloseRelative(double value, double expected, double relTol)
-{
-    EXPECT_TRUE(is_close_relative(expected, value, relTol));
+inline void expectCloseRelative(double value, double expected, double relTol) {
+    EXPECT_TRUE(EigSol::is_close_relative(expected, value, relTol));
 }
 
 // Convenience to check that A * x ≈ lambda * x
@@ -42,13 +41,13 @@ TEST(PowerMethodTest, DenseSimpleMatrix)
     A << 2.0, 0.0,
          0.0, 1.0;
 
-    Matrix M(A);
+    EigSol::Matrix M(A);
 
-    SolverOptions opts;
+    EigSol::SolverOptions opts;
     opts.maxIterations = 1000;
     opts.tolerance     = 1e-10;
 
-    auto result = powerMethod<double>(M, opts);
+    auto result = EigSol::powerMethod<double>(M, opts);
 
     EXPECT_TRUE(result.converged);
     EXPECT_GT(result.iterations, 0); // result.iterations > 0
@@ -67,13 +66,13 @@ TEST(PowerMethodTest, SparseMatrix)
                0.0, 2.0;
 
     SparseMat A = A_dense.sparseView();
-    Matrix M(A);
+    EigSol::Matrix M(A);
 
-    SolverOptions opts;
+    EigSol::SolverOptions opts;
     opts.maxIterations = 1000;
     opts.tolerance     = 1e-8;
 
-    auto result = powerMethod<double>(M, opts);
+    auto result = EigSol::powerMethod<double>(M, opts);
 
     EXPECT_TRUE(result.converged);
     EXPECT_GT(result.iterations, 0); // result.iterations > 0
@@ -89,13 +88,13 @@ TEST(PowerMethodTest, SparseMatrix)
 TEST(PowerMethodTest, NonSquareMatrixThrows)
 {
     DenseMat A(2, 3);
-    Matrix M(A);
+    EigSol::Matrix M(A);
 
-    SolverOptions opts;
+    EigSol::SolverOptions opts;
     opts.maxIterations = 100;
     opts.tolerance     = 1e-6;
 
-    EXPECT_THROW(powerMethod<double>(M, opts), std::runtime_error);
+    EXPECT_THROW(EigSol::powerMethod<double>(M, opts), std::runtime_error);
 }
 
 // -------------------------------------------------------------
@@ -107,13 +106,13 @@ TEST(PowerMethodTest, FewIterationsCanFailToConverge)
     A << 5.0, 1.0,
          1.0, 4.0;
 
-    Matrix M(A);
+    EigSol::Matrix M(A);
 
-    SolverOptions opts;
+    EigSol::SolverOptions opts;
     opts.maxIterations = 1;      // deliberately tiny
     opts.tolerance     = 1e-12;
 
-    auto result = powerMethod<double>(M, opts);
+    auto result = EigSol::powerMethod<double>(M, opts);
 
     // At least verify that the algorithm reports the expected iteration count
     EXPECT_EQ(result.iterations, opts.maxIterations);
@@ -125,11 +124,11 @@ TEST(PowerMethodTest, FewIterationsCanFailToConverge)
 TEST(PowerMethodTest, ZeroSizeMatrixThrows)
 {
     DenseMat A(0, 0);
-    Matrix M(A);
+    EigSol::Matrix M(A);
 
-    SolverOptions opts;
+    EigSol::SolverOptions opts;
     opts.maxIterations = 100;
     opts.tolerance     = 1e-6;
 
-    EXPECT_THROW(powerMethod<double>(M, opts), std::runtime_error);
+    EXPECT_THROW(EigSol::powerMethod<double>(M, opts), std::runtime_error);
 }

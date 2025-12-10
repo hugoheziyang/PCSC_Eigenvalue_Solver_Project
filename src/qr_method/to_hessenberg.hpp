@@ -11,6 +11,8 @@
 #include "../core/types.hpp" 
 #include "../matrix/matrix.hpp"
 
+namespace EigSol {
+
 /**
  * @brief Reduce a dense matrix A to upper Hessenberg form H using Householder reflections.
  *
@@ -115,3 +117,5 @@ to_hessenberg(const Matrix& A_wrapped)
     // 4. Compute Hessenberg form on the Eigen matrix and return it:
     return to_hessenberg_dense<Scalar>(A);
 }
+
+} // end namespace

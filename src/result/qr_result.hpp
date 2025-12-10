@@ -7,6 +7,8 @@
 #include "../core/types.hpp"
 #include <Eigen/Dense>
 
+namespace EigSol {
+
 /**
  * @struct QRResult
  * @brief Stores the output of QR-based eigenvalue solvers.
@@ -40,3 +42,5 @@ struct QRResult {
         , converged(conv)
     {}
 };
+
+} // end namespace

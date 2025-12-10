@@ -7,6 +7,8 @@
 #include <typeinfo>
 #include <memory>
 
+namespace EigSol {
+
 /**
  * @class Box
  * @brief Abstract base class for type-erased objects.
@@ -77,3 +79,5 @@ public:
      */
     virtual std::unique_ptr<Box> clone() const = 0;
 };
+
+} // end namespace

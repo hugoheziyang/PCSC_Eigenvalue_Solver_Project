@@ -6,21 +6,21 @@
 
 #include "../src/matrix/matrix.hpp"
 
-using DenseMat  = Eigen::MatrixXd;
-using SparseMat = Eigen::SparseMatrix<double>;
+using DenseMat  = EigSol::Matrix::Dense<double>;
+using SparseMat = EigSol::Matrix::Sparse<double>;
 
 // -------------------------------------------------------------
 // Static checks: Matrix invariants
 // -------------------------------------------------------------
-static_assert(!std::is_default_constructible_v<Matrix>,
+static_assert(!std::is_default_constructible_v<EigSol::Matrix>,
               "Matrix must not be default constructible");
-static_assert(!std::is_copy_constructible_v<Matrix>,
+static_assert(!std::is_copy_constructible_v<EigSol::Matrix>,
               "Matrix must not be copy constructible");
-static_assert(!std::is_copy_assignable_v<Matrix>,
+static_assert(!std::is_copy_assignable_v<EigSol::Matrix>,
               "Matrix must not be copy assignable");
-static_assert(!std::is_move_constructible_v<Matrix>,
+static_assert(!std::is_move_constructible_v<EigSol::Matrix>,
               "Matrix must not be move constructible");
-static_assert(!std::is_move_assignable_v<Matrix>,
+static_assert(!std::is_move_assignable_v<EigSol::Matrix>,
               "Matrix must not be move assignable");
 
 // -------------------------------------------------------------
@@ -32,7 +32,7 @@ TEST(MatrixWrapperTest, ConstructFromEigenDense)
     A << 1.0, 2.0,
          3.0, 4.0;
 
-    Matrix M(A);   // should store a canonical dense matrix
+    EigSol::Matrix M(A);   // should store a canonical dense matrix
 
     // Must be classified as dense
     EXPECT_TRUE(M.isDense());
@@ -57,7 +57,7 @@ TEST(MatrixWrapperTest, ConstructFromEigenSparse)
     S.insert(0, 0) = 5.0;
     S.insert(1, 2) = 7.0;
 
-    Matrix M(S);    // should store a canonical sparse matrix
+    EigSol::Matrix M(S);    // should store a canonical sparse matrix
 
     EXPECT_FALSE(M.isDense());
     EXPECT_EQ(M.scalar_type(), typeid(double));
@@ -74,7 +74,7 @@ TEST(MatrixWrapperTest, ConstructFromEigenSparse)
 TEST(MatrixWrapperTest, ConstructFromStdVector)
 {
     std::vector<double> vec = {1, 2, 3, 4};
-    Matrix M(vec, 2, 2);     // interpreted as row-major 2×2
+    EigSol::Matrix M(vec, 2, 2);     // interpreted as row-major 2×2
 
     EXPECT_TRUE(M.isDense());
     EXPECT_EQ(M.scalar_type(), typeid(double));
@@ -92,7 +92,7 @@ TEST(MatrixWrapperTest, ConstructFromStdVector)
 TEST(MatrixWrapperTest, CastThrowsOnWrongType)
 {
     DenseMat A = DenseMat::Identity(3, 3);
-    Matrix M(A);
+    EigSol::Matrix M(A);
 
     // Expect std::bad_cast if casting to sparse
     EXPECT_THROW(M.cast<SparseMat>(), std::bad_cast);
@@ -107,7 +107,7 @@ TEST(MatrixWrapperTest, CastThrowsOnWrongType)
 TEST(MatrixWrapperTest, TypeQueries)
 {
     DenseMat A = DenseMat::Zero(2, 2);
-    Matrix M(A);
+    EigSol::Matrix M(A);
 
     EXPECT_EQ(M.type(), typeid(DenseMat));
     EXPECT_EQ(M.scalar_type(), typeid(double));
