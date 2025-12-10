@@ -48,7 +48,8 @@ To view the documentation, open ```docs/html/index.html``` in your favourite bro
 google-chrome docs/html/index.html
 ```
 
-After compiling the repository and generating the documentation, the repository structure at the first level should look like (comments preceded by //):
+After compiling the repository and generating the documentation, the repository structure at the first level should look like (comments preceded by ```//```):
+```bash
 .
 ├── build                   // Directory of executables
 ├── CMakeLists.txt          
@@ -60,7 +61,7 @@ After compiling the repository and generating the documentation, the repository 
 ├── README.md
 ├── src                     // Directory of eigensolver source code of project
 └── test                    // Directory of tests for functions in ```src/```
-
+```
 
 ---
 
