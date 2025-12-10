@@ -85,7 +85,7 @@ dense
 <number_of_rows> <number_of_columns>
 <dense_matrix_representation>
 ```
-An example of representing a real dense matrix:
+An example of representing a real dense matrix: \
 $$
 \begin{pmatrix}
     1 & 3 & 1 \\
@@ -99,7 +99,7 @@ is given by replacing ```<dense_matrix_representation>``` by the following:
 0 2 3
 0 0 5
 ```
-An example of representing a complex dense matrix:
+An example of representing a complex dense matrix: \
 $$
 \begin{pmatrix}
     1+3i & 3+5i & 1+4i \\
@@ -121,7 +121,7 @@ sparse
 <number_of_nonzero_values>
 <sparse_matrix_representation>
 ```
-An example of representing a real sparse matrix:
+An example of representing a real sparse matrix: \
 $$
 \begin{pmatrix}
     1 & 3 & 1 \\
@@ -142,7 +142,7 @@ where for each row, the syntax is:
 ```
 <row_index> <column_index> <value>
 ```
-An example of representing a complex sparse matrix:
+An example of representing a complex sparse matrix: \
 $$
 \begin{pmatrix}
     1+3i & 3+5i & 1+4i \\
