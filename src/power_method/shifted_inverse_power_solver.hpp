@@ -16,6 +16,8 @@
 #include "../core/tolerance.hpp"
 
 
+namespace EigSol {
+
 template <typename Mat>
     requires ScalarConcept<typename Mat::Scalar>
 EigenResult<typename Mat::Scalar> shiftedInversePowerImpl(
@@ -120,3 +122,5 @@ EigenResult<Scalar> shiftedInversePowerMethod(const Matrix& M, const ShiftedSolv
         return shiftedInversePowerImpl<Mat>(M, M.cast<Mat>(), opts);
     }
 }
+
+} // end namespace

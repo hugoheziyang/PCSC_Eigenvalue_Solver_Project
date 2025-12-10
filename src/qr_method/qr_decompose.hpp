@@ -6,6 +6,8 @@
 #include "../matrix/matrix.hpp"
 
 
+namespace EigSol {
+
 /**
  * @brief Compute QR decomposition of a dense matrix A using Householder reflections.
  *
@@ -124,3 +126,5 @@ auto qr_decompose(const Matrix& A_wrapped)
 
     return { Q, R };
 }
+
+} // end namespace

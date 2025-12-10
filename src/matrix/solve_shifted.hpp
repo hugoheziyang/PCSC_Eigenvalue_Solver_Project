@@ -14,6 +14,8 @@
 #include <stdexcept>
 #include <typeinfo>
 
+namespace EigSol {
+
 /**
  * @brief Solve the shifted system (A - λ I) x = b.
  *
@@ -114,3 +116,5 @@ solve_shifted(
 
     return x;
 }
+
+} // end namespace

@@ -32,7 +32,6 @@
 
 #include "src/reader/file_matrix_reader.hpp"
 
-
 template <typename VectorType>
 void printVector(const VectorType& v, const std::string& name) {
     std::cout << name << std::endl;
@@ -45,23 +44,23 @@ int main() {
     const std::string fileA   = "../data/A.txt";
     const std::string fileB = "../data/B.txt";
 
-    Matrix A = readMatrixFromFile<Scalar>(fileA);
-    Matrix B = readMatrixFromFile<Scalar>(fileB);
+    EigSol::Matrix A = EigSol::readMatrixFromFile<Scalar>(fileA);
+    EigSol::Matrix B = EigSol::readMatrixFromFile<Scalar>(fileB);
 
     std::cout << "===== Power method =====" << std::endl;
 
-    SolverOptions opts;
+    EigSol::SolverOptions opts;
     opts.maxIterations = 1000;
     opts.tolerance = 1e-10;
 
-    auto powerResultA = powerMethod<Scalar>(A, opts);
+    auto powerResultA = EigSol::powerMethod<Scalar>(A, opts);
     std::cout << "Matrix A" << std::endl;
     std::cout << "Converged : " << std::boolalpha << powerResultA.converged << std::endl;
     std::cout << "Iterations: " << powerResultA.iterations << std::endl;
     std::cout << "Eigenvalue: " << powerResultA.eigenvalue << std::endl;
     printVector(powerResultA.eigenvector, "Eigenvector:");
 
-    auto powerResultB = powerMethod<Scalar>(B, opts);
+    auto powerResultB = EigSol::powerMethod<Scalar>(B, opts);
     std::cout << "Matrix B" << std::endl;
     std::cout << "Converged : " << std::boolalpha << powerResultB.converged << std::endl;
     std::cout << "Iterations: " << powerResultB.iterations << std::endl;
@@ -71,12 +70,12 @@ int main() {
 
     std::cout << "===== Shifted inverse power method =====" << std::endl;
 
-    ShiftedSolverOptions<Scalar> shiftedOptsA;
+    EigSol::ShiftedSolverOptions<Scalar> shiftedOptsA;
     shiftedOptsA.shift = 3.1;
     shiftedOptsA.maxIterations = 1000;
     shiftedOptsA.tolerance = 1e-12;
 
-    auto shiftInvPowResultA = shiftedInversePowerMethod<Scalar>(A, shiftedOptsA);
+    auto shiftInvPowResultA = EigSol::shiftedInversePowerMethod<Scalar>(A, shiftedOptsA);
 
     std::cout << "Matrix A" << std::endl;
     std::cout << "Converged                : " << std::boolalpha << shiftInvPowResultA.converged << std::endl;
@@ -84,12 +83,12 @@ int main() {
     std::cout << "Eigenvalue near the shift: " << shiftInvPowResultA.eigenvalue << std::endl;
     printVector(shiftInvPowResultA.eigenvector, "Eigenvector:");
 
-    ShiftedSolverOptions<Scalar> shiftedOptsB;
+    EigSol::ShiftedSolverOptions<Scalar> shiftedOptsB;
     shiftedOptsB.shift         = 2.3;
     shiftedOptsB.maxIterations = 1000;
     shiftedOptsB.tolerance     = 1e-12;
 
-    auto shiftInvPowResultB = shiftedInversePowerMethod<Scalar>(B, shiftedOptsB);
+    auto shiftInvPowResultB = EigSol::shiftedInversePowerMethod<Scalar>(B, shiftedOptsB);
 
     std::cout << "Matrix B" << std::endl;
     std::cout << "Converged                : " << std::boolalpha << shiftInvPowResultB.converged << std::endl;
@@ -101,23 +100,28 @@ int main() {
     std::cout << "===== QR eigenvalue method =====" << std::endl;
 
     // QR solver options
-    SolverOptions qrOpts;
+    EigSol::SolverOptions qrOpts;
     qrOpts.maxIterations = 1000;
     qrOpts.tolerance     = 1e-10;
 
     try {
         std::cout << "Hessenberg reduction of Matrix A" << std::endl;
-        Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic> H_A = to_hessenberg<Scalar>(A);
+
+        Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic> H_A = EigSol::to_hessenberg<Scalar>(A);
+        
         std::cout << "H(A) = " << std::endl << H_A << std::endl << std::endl;
 
         std::cout << "QR decomposition of Matrix A" << std::endl;
-        auto [Q_A, R_A] = qr_decompose<Scalar>(A);
+        
+        auto [Q_A, R_A] = EigSol::qr_decompose<Scalar>(A);
+        
         std::cout << "Q_A = " << std::endl << Q_A << std::endl << std::endl;
         std::cout << "R_A = " << std::endl << R_A << std::endl << std::endl;
         std::cout << "Q_A * R_A (should approximate A) = " << std::endl
                   << Q_A * R_A << std::endl << std::endl;
 
-        auto qrResultA = qr_eigenvalues<Scalar>(A, qrOpts);
+        auto qrResultA = EigSol::qr_eigenvalues<Scalar>(A, qrOpts);
+        
         std::cout << "QR eigenvalues for Matrix A" << std::endl;
         std::cout << "Converged              : " << std::boolalpha << qrResultA.converged << std::endl;
         std::cout << "Iterations             : " << qrResultA.iterations << std::endl;
@@ -129,7 +133,8 @@ int main() {
     }
 
     try {
-        auto qrResultB = qr_eigenvalues<Scalar>(B, qrOpts);
+        auto qrResultB = EigSol::qr_eigenvalues<Scalar>(B, qrOpts);
+        
         std::cout << "QR eigenvalues for Matrix B" << std::endl;
         std::cout << "Converged              : " << std::boolalpha << qrResultB.converged << std::endl;
         std::cout << "Iterations             : " << qrResultB.iterations << std::endl;

@@ -9,13 +9,13 @@
 #include "../src/option/shifted_solver_option.hpp"
 #include "../src/core/tolerance.hpp"
 
-using DenseMat  = Eigen::MatrixXd;
-using SparseMat = Eigen::SparseMatrix<double>;
+using DenseMat  = EigSol::Matrix::Dense<double>;
+using SparseMat = EigSol::Matrix::Sparse<double>;
 
 // Small helper for comparing doubles with a relative tolerance
 inline void expectCloseRelative(double value, double expected, double relTol)
 {
-    EXPECT_TRUE(is_close_relative(expected, value, relTol));
+    EXPECT_TRUE(EigSol::is_close_relative(expected, value, relTol));
 }
 
 // Convenience to check that A * x ≈ lambda * x
@@ -42,9 +42,9 @@ TEST(ShiftedInversePowerMethodTest, DenseShiftNearFirstEigenvalue)
     A << 2.0, 0.0,
          0.0, 5.0;
 
-    Matrix M(A);
+    EigSol::Matrix M(A);
 
-    ShiftedSolverOptions<double> opts;
+    EigSol::ShiftedSolverOptions<double> opts;
     opts.shift         = 1.9;      // shift close to 2
     opts.maxIterations = 1000;
     opts.tolerance     = 1e-10;
@@ -67,14 +67,14 @@ TEST(ShiftedInversePowerMethodTest, DenseShiftNearSecondEigenvalue)
     A << 2.0, 0.0,
          0.0, 5.0;
 
-    Matrix M(A);
+    EigSol::Matrix M(A);
 
-    ShiftedSolverOptions<double> opts;
+    EigSol::ShiftedSolverOptions<double> opts;
     opts.shift         = 4.9;      // shift close to 5
     opts.maxIterations = 1000;
     opts.tolerance     = 1e-10;
 
-    auto result = shiftedInversePowerMethod<double>(M, opts);
+    auto result = EigSol::shiftedInversePowerMethod<double>(M, opts);
 
     EXPECT_TRUE(result.converged);
     EXPECT_GT(result.iterations, 0); // Verifies that result.iterations >= 0
@@ -94,14 +94,14 @@ TEST(ShiftedInversePowerMethodTest, SparseMatrix)
     A_dense(2, 2) = 10.0;
 
     SparseMat A = A_dense.sparseView();
-    Matrix M(A);
+    EigSol::Matrix M(A);
 
-    ShiftedSolverOptions<double> opts;
+    EigSol::ShiftedSolverOptions<double> opts;
     opts.shift         = 2.9;      // shift close to eigenvalue 3
     opts.maxIterations = 1000;
     opts.tolerance     = 1e-8;
 
-    auto result = shiftedInversePowerMethod<double>(M, opts);
+    auto result = EigSol::shiftedInversePowerMethod<double>(M, opts);
 
     EXPECT_TRUE(result.converged);
     EXPECT_GT(result.iterations, 0); // Verifies that result.iterations >= 0
@@ -116,15 +116,15 @@ TEST(ShiftedInversePowerMethodTest, SparseMatrix)
 TEST(ShiftedInversePowerMethodTest, NonSquareMatrixThrows)
 {
     DenseMat A(2, 3);
-    Matrix M(A);
+    EigSol::Matrix M(A);
 
-    ShiftedSolverOptions<double> opts;
+    EigSol::ShiftedSolverOptions<double> opts;
     opts.shift         = 1.0;
     opts.maxIterations = 100;
     opts.tolerance     = 1e-6;
 
     EXPECT_THROW(
-        shiftedInversePowerMethod<double>(M, opts),
+        EigSol::shiftedInversePowerMethod<double>(M, opts),
         std::runtime_error
     );
 }
@@ -135,15 +135,15 @@ TEST(ShiftedInversePowerMethodTest, NonSquareMatrixThrows)
 TEST(ShiftedInversePowerMethodTest, ZeroSizeMatrixThrows)
 {
     DenseMat A(0, 0);
-    Matrix M(A);
+    EigSol::Matrix M(A);
 
-    ShiftedSolverOptions<double> opts;
+    EigSol::ShiftedSolverOptions<double> opts;
     opts.shift         = 0.0;
     opts.maxIterations = 100;
     opts.tolerance     = 1e-6;
 
     EXPECT_THROW(
-        shiftedInversePowerMethod<double>(M, opts),
+        EigSol::shiftedInversePowerMethod<double>(M, opts),
         std::runtime_error
     );
 }
@@ -157,14 +157,14 @@ TEST(ShiftedInversePowerMethodTest, FewIterationsCanFailToConverge)
     A << 5.0, 1.0,
          1.0, 4.0;
 
-    Matrix M(A);
+    EigSol::Matrix M(A);
 
-    ShiftedSolverOptions<double> opts;
+    EigSol::ShiftedSolverOptions<double> opts;
     opts.shift         = 4.0;
     opts.maxIterations = 1;        // deliberately tiny
     opts.tolerance     = 1e-12;
 
-    auto result = shiftedInversePowerMethod<double>(M, opts);
+    auto result = EigSol::shiftedInversePowerMethod<double>(M, opts);
 
     // At least verify that the algorithm reports the expected iteration count
     EXPECT_EQ(result.iterations, opts.maxIterations);

@@ -29,14 +29,14 @@ void expect_linear_system_residual_small(
 // ---------------------------------------------------------------
 TEST(SolveShiftedLinearSystem, DenseIdentity) {
     using Scalar = double;
-    using DenseMat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
-    using Vec = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
+    using DenseMat = EigSol::Matrix::Dense<Scalar>;
+    using Vec = EigSol::Vector<Scalar>;
 
     // Construct A = I_3
     DenseMat A = DenseMat::Identity(3, 3);
 
     // Wrap A in Matrix
-    Matrix A_wrapped(A);
+    EigSol::Matrix A_wrapped(A);
 
     // Shift λ = 2
     Scalar lambda = 2;
@@ -46,7 +46,7 @@ TEST(SolveShiftedLinearSystem, DenseIdentity) {
     b << 1.0, -2.0, 3.0;
 
     // Solve (A - λ I) x = b  =>  (-I) x = b  => x = -b
-    Vec x = solve_shifted<Scalar>(A_wrapped, lambda, b);
+    Vec x = EigSol::solve_shifted<Scalar>(A_wrapped, lambda, b);
 
     // Expected solution is -b
     Vec x_expected = -b;
@@ -65,15 +65,15 @@ TEST(SolveShiftedLinearSystem, DenseIdentity) {
 // ---------------------------------------------------------------
 TEST(SolveShiftedLinearSystem, DenseGeneral2x2) {
     using Scalar = double;
-    using DenseMat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
-    using Vec = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
+    using DenseMat = EigSol::Matrix::Dense<Scalar>;
+    using Vec = EigSol::Vector<Scalar>;
 
     // Arbitrary 2x2 matrix
     DenseMat A(2, 2);
     A << 3.0, 1.0,
          0.0, 4.0;
 
-    Matrix A_wrapped(A);
+    EigSol::Matrix A_wrapped(A);
 
     // Choose a shift λ
     Scalar lambda = 1.5;
@@ -83,7 +83,7 @@ TEST(SolveShiftedLinearSystem, DenseGeneral2x2) {
     b << 2.0, -1.0;
 
     // Solve via our wrapper
-    Vec x = solve_shifted<Scalar>(A_wrapped, lambda, b);
+    Vec x = EigSol::solve_shifted<Scalar>(A_wrapped, lambda, b);
 
     // Form M = A - λ I and solve with Eigen directly
     DenseMat M = A - lambda * DenseMat::Identity(2, 2);
@@ -105,16 +105,16 @@ TEST(SolveShiftedLinearSystem, DenseGeneral2x2) {
 // ---------------------------------------------------------------
 TEST(SolveShiftedLinearSystem, SparseIdentity) {
     using Scalar = double;
-    using SparseMat = Eigen::SparseMatrix<Scalar>;
-    using DenseMat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
-    using Vec = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
+    using SparseMat = EigSol::Matrix::Sparse<Scalar>;
+    using DenseMat = EigSol::Matrix::Dense<Scalar>;
+    using Vec = EigSol::Vector<Scalar>;
 
     // Construct sparse A = I_3
     SparseMat A(3, 3);
     A.setIdentity();  // fills diagonal with 1's
 
     // Wrap A in Matrix (will be canonicalized inside Matrix)
-    Matrix A_wrapped(A);
+    EigSol::Matrix A_wrapped(A);
 
     // Shift λ = 2
     Scalar lambda = 2;
@@ -124,7 +124,7 @@ TEST(SolveShiftedLinearSystem, SparseIdentity) {
     b << 1.0, 0.5, -4.0;
 
     // Solve (A - λ I) x = b  => (-I)x = b  => x = -b
-    Vec x = solve_shifted<Scalar>(A_wrapped, lambda, b);
+    Vec x = EigSol::solve_shifted<Scalar>(A_wrapped, lambda, b);
 
     Vec x_expected = -b;
     for (int i = 0; i < x.size(); ++i) {
@@ -141,16 +141,17 @@ TEST(SolveShiftedLinearSystem, SparseIdentity) {
 // Dense complex test: compare with Eigen direct solve.
 // ---------------------------------------------------------------
 TEST(SolveShiftedLinearSystem, DenseComplex2x2) {
-    using Scalar   = std::complex<double>;
-    using DenseMat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
-    using Vec      = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
+    using Scalar = std::complex<double>;
+    using SparseMat = EigSol::Matrix::Sparse<Scalar>;
+    using DenseMat = EigSol::Matrix::Dense<Scalar>;
+    using Vec = EigSol::Vector<Scalar>;
 
     // A is arbitrary 2x2 complex matrix
     DenseMat A(2, 2);
     A << Scalar(1.0, 1.0), Scalar(2.0, -1.0),
          Scalar(0.5, 0.0), Scalar(3.0,  2.0);
 
-    Matrix A_wrapped(A);
+    EigSol::Matrix A_wrapped(A);
 
     Scalar lambda(0.7, -0.3);
 
@@ -158,7 +159,7 @@ TEST(SolveShiftedLinearSystem, DenseComplex2x2) {
     b << Scalar(1.0, 0.0), Scalar(-2.0, 1.0);
 
     // Solve via our wrapper
-    Vec x = solve_shifted<Scalar>(A_wrapped, lambda, b);
+    Vec x = EigSol::solve_shifted<Scalar>(A_wrapped, lambda, b);
 
     // Reference: form M = A - λ I and use Eigen directly
     DenseMat M = A - lambda * DenseMat::Identity(2, 2);
@@ -180,20 +181,20 @@ TEST(SolveShiftedLinearSystem, DenseComplex2x2) {
 // ---------------------------------------------------------------
 TEST(SolveShiftedLinearSystem, ThrowsOnNonSquareDense) {
     using Scalar   = double;
-    using DenseMat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
-    using Vec      = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
+    using DenseMat = EigSol::Matrix::Dense<Scalar>;
+    using Vec = EigSol::Vector<Scalar>;
 
     DenseMat A(2, 3);
     A.setRandom();
 
-    Matrix A_wrapped(A);
+    EigSol::Matrix A_wrapped(A);
     Scalar lambda = 1.0;
 
     Vec b(2);
     b.setOnes();
 
     EXPECT_THROW(
-        (void)solve_shifted<Scalar>(A_wrapped, lambda, b),
+        EigSol::solve_shifted<Scalar>(A_wrapped, lambda, b),
         std::runtime_error
     );
 }
@@ -203,21 +204,21 @@ TEST(SolveShiftedLinearSystem, ThrowsOnNonSquareDense) {
 // ---------------------------------------------------------------
 TEST(SolveShiftedLinearSystem, ThrowsOnNonSquareSparse) {
     using Scalar   = double;
-    using SparseMat = Eigen::SparseMatrix<Scalar>;
-    using Vec       = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
+    using SparseMat = EigSol::Matrix::Sparse<Scalar>;
+    using Vec       = EigSol::Vector<Scalar>;
 
     SparseMat A(2, 3);
     A.insert(0, 0) = 1.0;
     A.insert(1, 2) = 2.0;
 
-    Matrix A_wrapped(A);
+    EigSol::Matrix A_wrapped(A);
     Scalar lambda = 0.5;
 
     Vec b(2);
     b << 1.0, -1.0;
 
     EXPECT_THROW(
-        (void)solve_shifted<Scalar>(A_wrapped, lambda, b),
+        EigSol::solve_shifted<Scalar>(A_wrapped, lambda, b),
         std::runtime_error
     );
 }
@@ -227,18 +228,18 @@ TEST(SolveShiftedLinearSystem, ThrowsOnNonSquareSparse) {
 // ---------------------------------------------------------------
 TEST(SolveShiftedLinearSystem, ThrowsOnSizeMismatchDense) {
     using Scalar   = double;
-    using DenseMat = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
-    using Vec      = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
+    using DenseMat = EigSol::Matrix::Dense<Scalar>;
+    using Vec = EigSol::Vector<Scalar>;
 
     DenseMat A = DenseMat::Identity(3, 3);
-    Matrix A_wrapped(A);
+    EigSol::Matrix A_wrapped(A);
     Scalar lambda = 1.0;
 
     Vec b(2);      // wrong size
     b.setOnes();
 
     EXPECT_THROW(
-        (void)solve_shifted<Scalar>(A_wrapped, lambda, b),
+        EigSol::solve_shifted<Scalar>(A_wrapped, lambda, b),
         std::runtime_error
     );
 }
@@ -250,14 +251,14 @@ TEST(SolveShiftedLinearSystem, ThrowsOnScalarTypeMismatch) {
     using RealScalar    = double;
     using ComplexScalar = std::complex<double>;
 
-    using DenseMatReal = Eigen::Matrix<RealScalar, Eigen::Dynamic, Eigen::Dynamic>;
-    using VecComplex   = Eigen::Matrix<ComplexScalar, Eigen::Dynamic, 1>;
+    using DenseMatReal = EigSol::Matrix::Dense<RealScalar>;
+    using VecComplex   = EigSol::Vector<ComplexScalar>;
 
     DenseMatReal A(2, 2);
     A << 1.0, 2.0,
          3.0, 4.0;
 
-    Matrix A_wrapped(A);  // scalar_type() == typeid(double)
+    EigSol::Matrix A_wrapped(A);  // scalar_type() == typeid(double)
 
     ComplexScalar lambda = ComplexScalar(1.0, 0.0);
 
@@ -266,7 +267,7 @@ TEST(SolveShiftedLinearSystem, ThrowsOnScalarTypeMismatch) {
          ComplexScalar(0.0, 1.0);
 
     EXPECT_THROW(
-        (void)solve_shifted<ComplexScalar>(A_wrapped, lambda, b),
+        EigSol::solve_shifted<ComplexScalar>(A_wrapped, lambda, b),
         std::runtime_error
     );
 }

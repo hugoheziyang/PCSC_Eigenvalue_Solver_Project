@@ -31,6 +31,8 @@
  * The class uses Box and BoxTyped internally for type-erasure while
  * keeping the public interface non-templated.
  */
+namespace EigSol {
+
 class Matrix {
 public:
     /// Canonical dense matrix type alias.
@@ -242,3 +244,6 @@ private:
     const std::type_info* scalarType_;
     std::unique_ptr<Box> ptr_;
 };
+
+
+} // End namespace

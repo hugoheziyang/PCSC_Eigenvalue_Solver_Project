@@ -8,6 +8,8 @@
 #include <memory>   // std::unique_ptr
 #include <typeinfo> // typeid
 
+namespace EigSol{
+
 /**
  * @class BoxTyped
  * @brief Concrete Box that stores an object of type T by value.
@@ -75,3 +77,5 @@ public:
 private:
     T value_;  ///< The stored object of type T.
 };
+
+} // end namespace

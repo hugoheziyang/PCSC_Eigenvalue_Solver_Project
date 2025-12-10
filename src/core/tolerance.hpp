@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+namespace EigSol {
+
 /**
  * @brief Checks whether two floating-point values are close under a relative tolerance.
  *
@@ -23,3 +25,5 @@ inline bool is_close_relative(double a, double b, double tol) {
     const double scale = 1.0 + std::abs(a);
     return diff <= tol * scale;
 }
+
+} // end namespace

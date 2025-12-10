@@ -10,6 +10,8 @@
 #include "solver_option.hpp"
 #include "../core/types.hpp"
 
+namespace EigSol {
+
 /**
  * @brief Options for solvers that use a spectral shift.
  *
@@ -65,3 +67,5 @@ struct ShiftedSolverOptions : public SolverOptions {
         tolerance = tol;
     }
 };
+
+} // end namespace

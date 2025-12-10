@@ -7,6 +7,8 @@
 #include "../core/types.hpp"
 #include <Eigen/Dense>
 
+namespace EigSol {
+
 /**
  * @struct EigenResult
  * @brief Stores the result of algorithms that compute one eigenvalue and eigenvector.
@@ -48,3 +50,6 @@ struct EigenResult {
         converged(conv)
     {}
 };
+
+
+} // end namespace
