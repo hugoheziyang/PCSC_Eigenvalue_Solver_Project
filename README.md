@@ -3,6 +3,7 @@
 ---
 
 ## Project overview
+
 This C++ project implements a solver to find all eigenvalues of a given matrix A. The methods used include 
 the **power method**, **shifted inverse power method**, and the **QR method**. For a detailed description of each
 methodology, one can refer to the respective webpages [Power iteration](https://en.wikipedia.org/wiki/Power_iteration), 
@@ -11,12 +12,14 @@ methodology, one can refer to the respective webpages [Power iteration](https://
 ---
 
 ## Authors
+
 - Clement Froidevaux
 - Ziyang He  
 
 ---
 
 ## 1. Compilation of program
+
 After cloning the repository, run the following command to populate the ```eigen``` directory:
 ```bash
 git submodule update --init eigen
@@ -39,6 +42,7 @@ cd build
 ---
 
 ## 2. Documentation and repository structure
+
 In depth documentation is done using ```doxygen``` software. To create the documentation, run the command in the root of repository:
 ```bash
 doxygen Doxyfile
@@ -66,13 +70,40 @@ After compiling the repository and generating the documentation, the repository 
 ---
 
 ## 3. Program logic and typical execution
-To use the eigensolver, the user must 
-The eigensolver stores ```eigen``` matrices in ```EigSol::Matrix``` wrapper objects. 
+
+To use the eigensolver, the user can choose to create an ```EigSol::Matrix``` object by any of the three following ways:
+- Input a ```.txt``` file with specific layout.
+- Create an ```eigen``` matrix object and wrapping it with ```EigSol::Matrix```.
+- Create a ```std::vector``` matrix object and wrapping it with ```EigSol::Matrix```.
+The three ways are described in the following subsections.
+
+
+### 3.1 Input a ```.txt``` file with specific layout.
+For dense matrices, the ```.txt``` file should be written in the following format (replace <.> with desired numbers):
+```
+dense
+<number_of_rows> <number_of_columns>
+<dense_matrix_representation>
+```
+For the ```<dense_matrix_representation>```, an example of representing a real dense matrix is:
+$\pi$
+
+```
+1 3   3 5   1 4.0 
+0 0   2 4   3 2.0
+0 0   0 0   5 -1
+```
+
+```cpp
+const std::string fileA   = "../data/A.txt";
+```
+
 
 
 ---
 
 ## 4. Use of AI
+
 AI chatbots were used to write most of ```src/core/types.hpp``` and all the tests in the ```test/``` directory. Minor editing was done to these files after AI generation. AI chatbots were also used to tidy up and clean ```doxygen``` comments for better presentation in documentation.
 
 ---
