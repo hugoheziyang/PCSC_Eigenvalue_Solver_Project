@@ -283,6 +283,4 @@ ctest
 
 - The project relies on Eigen for core numerical kernels such as LU factorization because of time limits.
 
-- The implementation focuses on architectural clarity rather than production-grade numerical optimisations. Features such as advanced shifting strategies deflation or high-performance blocked routines were intentionally left out to keep the design readable and modular.
-
 - The implementation prioritises a user-friendly interface and a structure that makes adding new features easy rather than focusing on high-performance numerical routines.
