@@ -177,7 +177,7 @@ To create an ```EigSol::Matrix A``` containing a ```double``` typed matrix (eith
 #include "src/matrix/matrix.hpp"
 
 const std::string fileA = "A.txt";
-EigSol::Matrix A = EigSol::readMatrixFromFile<double>(fileA)
+EigSol::Matrix A = EigSol::readMatrixFromFile<double>(fileA);
 ```
 
 ### 3.2 Create an ```eigen``` or ```std::vector``` matrix object and wrapping with ```EigSol::Matrix```
@@ -215,7 +215,7 @@ EigSol::SolverOptions opts;
 opts.maxIterations = 1000;
 opts.tolerance = 1e-10;
 
-auto powerResult = EigSol::powerMethod<double>(A, opts)    
+auto powerResult = EigSol::powerMethod<double>(A, opts);    
 
 // --- Shifted inverse power method ---
 EigSol::ShiftedSolverOptions<double> shiftedOpts;
