@@ -23,7 +23,7 @@ namespace EigSol {
 template <ScalarConcept Scalar>
 struct QRResult {
 
-    /// Computed eigenvalues (typically sorted, depending on implementation).
+    /// Computed eigenvalues.
     Vector<Scalar> eigenvalues;
 
     /// Number of QR iterations taken.
