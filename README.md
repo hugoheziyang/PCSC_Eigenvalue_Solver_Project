@@ -281,6 +281,6 @@ ctest
 
 - Error messages could be more informative.
 
-- The project relies on Eigen for core numerical kernels such as LU factorization because of time limits.
+- The project relies on Eigen for core numerical functions such as LU factorization because of time limits.
 
 - The implementation prioritises a user-friendly interface and a structure that makes adding new features easy rather than focusing on high-performance numerical routines.
