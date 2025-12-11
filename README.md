@@ -33,6 +33,12 @@ cmake ..
 cmake --build .
 ```
 
+After initial compilation, if certain files are edited (e.g. ```main.cpp```), to recompile the changes, execute from the root of repository:
+```bash
+cd build
+make -j
+```
+
 To launch the ```main``` program, simply execute from the root of repository:
 ```bash
 cd build
@@ -258,7 +264,7 @@ ctest
 ```
 
 
-- ```matrix_wrapper_test.cpp``` tests correct construction of the Matrix wrapper from dense or sparse Eigen matrices or std::vector with proper type reporting casting rules and value consistency.
+- ```matrix_wrapper_test.cpp``` tests correct construction of the Matrix wrapper from dense or sparse Eigen matrices or ```std::vector``` with proper type reporting casting rules and value consistency.
 
 - ```solve_shifted_test.cpp``` tests solving the shifted system (A − λI)x = b for dense or sparse real or complex matrices and checks that invalid dimensions or scalar mismatches raise the expected errors.
 
