@@ -249,7 +249,7 @@ The QR method result ```qrResult``` has attributes:
 
 ## 4. Use of AI
 
-AI chatbots were used to write most of ```src/core/types.hpp``` and all the tests in the ```test/``` directory. However, editing was done to these files after AI generation. AI chatbots were also used to tidy up and clean ```doxygen``` comments for better presentation in documentation.
+AI chatbots were used to write most of ```src/core/types.hpp``` and all the tests in the ```test/``` directory. However, editing was done to these files after AI generation. AI chatbots and autocompletion were also used to tidy up some ```doxygen``` comments and code for better presentation. 
 
 ---
 
